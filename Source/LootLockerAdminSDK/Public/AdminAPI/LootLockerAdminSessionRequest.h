@@ -117,7 +117,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateSessionResponseDelegate, FLootLo
  *
  */
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminSessionRequest : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminSessionRequest : public UObject
 {
     GENERATED_BODY()
     public:

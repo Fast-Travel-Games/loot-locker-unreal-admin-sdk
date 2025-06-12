@@ -14,6 +14,6 @@ void ULootLockerAdminCurrencyRequest::CreateCurrency(const FString& Name, const 
 	Request.Name = Name;
 	Request.Code = Code;
 	Request.Initial_denomination_name = DenominationName;
-	
+
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminCreateCurrencyResponse>(Request, ULootLockerAdminEndpoints::CreateCurrency, {Config->GameID}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }

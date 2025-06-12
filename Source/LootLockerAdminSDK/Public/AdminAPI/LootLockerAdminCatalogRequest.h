@@ -223,7 +223,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerAdminTogglePurchasableStatusResponseDelegat
  *
  */
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminCatalogRequest : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminCatalogRequest : public UObject
 {
     GENERATED_BODY()
     public:

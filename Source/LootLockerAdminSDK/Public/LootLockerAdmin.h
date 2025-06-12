@@ -9,7 +9,7 @@
 #include "AdminAPI/LootLockerAdminRewardRequest.h"
 #include "AdminAPI/LootLockerAdminSessionRequest.h"
 
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdmin : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdmin : public UObject
 {
 public:
     

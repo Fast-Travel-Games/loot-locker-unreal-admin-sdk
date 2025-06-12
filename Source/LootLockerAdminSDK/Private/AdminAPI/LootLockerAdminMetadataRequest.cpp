@@ -18,50 +18,50 @@ bool FLootLockerAdminMetadataEntry::TryGetRawValue(TSharedPtr<FJsonValue>& Outpu
 	return Output.IsValid();
 }
 
-void FLootLockerAdminMetadataEntry::SetValueAsString(const FString& Value) 
+void FLootLockerAdminMetadataEntry::SetValueAsString(const FString& Value)
 {
 	EntryAsJson.SetStringField(TEXT("value"), Value);
 	Type = ELootLockerAdminMetadataTypes::String;
 }
 
-void FLootLockerAdminMetadataEntry::SetValueAsFloat(const float& Value) 
+void FLootLockerAdminMetadataEntry::SetValueAsFloat(const float& Value)
 {
 	EntryAsJson.SetNumberField(TEXT("value"), Value);
 	Type = ELootLockerAdminMetadataTypes::Number;
 }
 
-void FLootLockerAdminMetadataEntry::SetValueAsInteger(const int& Value) 
+void FLootLockerAdminMetadataEntry::SetValueAsInteger(const int& Value)
 {
 	EntryAsJson.SetNumberField(TEXT("value"), Value);
 	Type = ELootLockerAdminMetadataTypes::Number;
 }
 
-void FLootLockerAdminMetadataEntry::SetValueAsBool(const bool& Value) 
+void FLootLockerAdminMetadataEntry::SetValueAsBool(const bool& Value)
 {
 	EntryAsJson.SetBoolField(TEXT("value"), Value);
 	Type = ELootLockerAdminMetadataTypes::Bool;
 }
 
-void FLootLockerAdminMetadataEntry::SetRawValue(const TSharedPtr<FJsonValue>& Value) 
+void FLootLockerAdminMetadataEntry::SetRawValue(const TSharedPtr<FJsonValue>& Value)
 {
 	EntryAsJson.SetField(TEXT("value"), Value);
 	Type = ELootLockerAdminMetadataTypes::Json;
 }
 
 
-void FLootLockerAdminMetadataEntry::SetValueAsJsonObject(const FJsonObject& Value) 
+void FLootLockerAdminMetadataEntry::SetValueAsJsonObject(const FJsonObject& Value)
 {
 	EntryAsJson.SetObjectField(TEXT("value"), MakeShared<FJsonObject>(Value));
 	Type = ELootLockerAdminMetadataTypes::Json;
 }
 
-void FLootLockerAdminMetadataEntry::SetValueAsJsonArray(const TArray<TSharedPtr<FJsonValue>>& Value) 
+void FLootLockerAdminMetadataEntry::SetValueAsJsonArray(const TArray<TSharedPtr<FJsonValue>>& Value)
 {
 	EntryAsJson.SetArrayField(TEXT("value"), Value);
 	Type = ELootLockerAdminMetadataTypes::Json;
 }
 
-void FLootLockerAdminMetadataEntry::SetValueAsBase64(const FLootLockerAdminMetadataBase64Value& Value) 
+void FLootLockerAdminMetadataEntry::SetValueAsBase64(const FLootLockerAdminMetadataBase64Value& Value)
 {
 	SetValueAsUStruct(Value);
 }
@@ -192,10 +192,10 @@ void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminM
 			OnCompletedRequest.ExecuteIfBound(Error);
 			return;
 		}
-		
+
 		JsonEntry->SetStringField(TEXT("type"), ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerServerMetadataTypes"), static_cast<int32>(ActionToPerform.Entry.Type)).ToLower());
 		JsonEntry->SetStringField(TEXT("action"), ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerServerMetadataActions"), static_cast<int32>(ActionToPerform.Action)).ToLower());
-		
+
 		TSharedPtr<FJsonValue> RawEntryValue;
 		if (!ActionToPerform.Entry.TryGetRawValue(RawEntryValue))
 		{
@@ -206,7 +206,7 @@ void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminM
 			return;
 		}
 		JsonEntry->SetField(TEXT("value"), RawEntryValue);
-		
+
 		entries.Add(MakeShared<FJsonValueObject>(JsonEntry));
 	}
 

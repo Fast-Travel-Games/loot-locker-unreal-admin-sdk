@@ -39,7 +39,7 @@ enum class ELootLockerAdminLogLevelConfiguration : uint8
  * 
  */
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminLogger : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminLogger : public UObject
 {
 	GENERATED_BODY()
 	public:	

@@ -221,7 +221,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerAdminActivateAssetResponseDelegate, FLootLo
  *
  */
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminAssetRequest : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminAssetRequest : public UObject
 {
     GENERATED_BODY()
     public:

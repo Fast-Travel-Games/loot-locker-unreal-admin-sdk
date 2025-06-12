@@ -126,33 +126,33 @@ struct FLootLockerAdminMetadataEntry
 	/*
 	 Get the value as an unparsed json value. Returns true if value could be found in which case Output contains the JsonValue, returns false if the value field was not present.
 	 */
-	LOOTLOCKERADMINSDKEDITOR_API bool TryGetRawValue(TSharedPtr<FJsonValue>& Output) const;
+	LOOTLOCKERADMINSDK_API bool TryGetRawValue(TSharedPtr<FJsonValue>& Output) const;
 	
     /*
      Set the value as a String.
      */
-    LOOTLOCKERADMINSDKEDITOR_API void SetValueAsString(const FString& Value);
+    LOOTLOCKERADMINSDK_API void SetValueAsString(const FString& Value);
     /*
      Set the value as a float.
      */
-    LOOTLOCKERADMINSDKEDITOR_API void SetValueAsFloat(const float& Value);
+    LOOTLOCKERADMINSDK_API void SetValueAsFloat(const float& Value);
     /*
      Set the value as an integer.
      */
-    LOOTLOCKERADMINSDKEDITOR_API void SetValueAsInteger(const int& Value);
+    LOOTLOCKERADMINSDK_API void SetValueAsInteger(const int& Value);
     /*
      Set the value as a bool.
      */
-    LOOTLOCKERADMINSDKEDITOR_API void SetValueAsBool(const bool& Value);
+    LOOTLOCKERADMINSDK_API void SetValueAsBool(const bool& Value);
     /*
      Set the value as a JsonValue.
      */
-    LOOTLOCKERADMINSDKEDITOR_API void SetRawValue(const TSharedPtr<FJsonValue>& Value);
+    LOOTLOCKERADMINSDK_API void SetRawValue(const TSharedPtr<FJsonValue>& Value);
     /*
      Set the value as the provided UStruct object. Returns true if value could be serialized.
      */
     template<typename T>
-    LOOTLOCKERADMINSDKEDITOR_API bool SetValueAsUStruct(const T& Value)
+    LOOTLOCKERADMINSDK_API bool SetValueAsUStruct(const T& Value)
 	{
 		TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(Value);
 		if(!JsonObject.IsValid())
@@ -167,54 +167,54 @@ struct FLootLockerAdminMetadataEntry
 	/*
      Set the value as a Json Object.
      */
-    LOOTLOCKERADMINSDKEDITOR_API void SetValueAsJsonObject(const FJsonObject& Value);
+    LOOTLOCKERADMINSDK_API void SetValueAsJsonObject(const FJsonObject& Value);
     /*
      Set the value as a Json Array.
      */
-    LOOTLOCKERADMINSDKEDITOR_API void SetValueAsJsonArray(const TArray<TSharedPtr<FJsonValue>>& Value);
+    LOOTLOCKERADMINSDK_API void SetValueAsJsonArray(const TArray<TSharedPtr<FJsonValue>>& Value);
     /*
      Set the value as a Base64 object.
      */
-    LOOTLOCKERADMINSDKEDITOR_API void SetValueAsBase64(const FLootLockerAdminMetadataBase64Value& Value);
+    LOOTLOCKERADMINSDK_API void SetValueAsBase64(const FLootLockerAdminMetadataBase64Value& Value);
 
     /*
      Factory method that makes an FLootLockerAdminMetadataEntry with a String Value
      */
-	static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry MakeStringEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FString& Value);
+	static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeStringEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FString& Value);
     /*
      Factory method that makes an FLootLockerAdminMetadataEntry with a Float Value
      */
-    static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry MakeFloatEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const float& Value);
+    static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeFloatEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const float& Value);
     /*
      Factory method that makes an FLootLockerAdminMetadataEntry with an Integer Value
      */
-    static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry MakeIntegerEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const int Value);
+    static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeIntegerEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const int Value);
     /*
      Factory method that makes an FLootLockerAdminMetadataEntry with a Bool Value
      */
-    static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry MakeBoolEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const bool Value);
+    static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeBoolEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const bool Value);
     /*
      Factory method that makes an FLootLockerAdminMetadataEntry with a JsonValue Value
      */
-    static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry MakeJsonValueEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerAdminMetadataTypes Type, const TSharedPtr<FJsonValue> Value);
+    static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeJsonValueEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerAdminMetadataTypes Type, const TSharedPtr<FJsonValue> Value);
     /*
      Factory method that makes an FLootLockerAdminMetadataEntry with a JsonObject Value
      */
-    static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry MakeJsonObjectEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FJsonObject& Value);
+    static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeJsonObjectEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FJsonObject& Value);
     /*
      Factory method that makes an FLootLockerAdminMetadataEntry with a JsonArray Value
      */
-    static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry MakeJsonArrayEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const TArray<TSharedPtr<FJsonValue>>& Value);
+    static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeJsonArrayEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const TArray<TSharedPtr<FJsonValue>>& Value);
     /*
      Factory method that makes an FLootLockerAdminMetadataEntry with a Base64 Value
      */
-    static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry MakeBase64Entry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FLootLockerAdminMetadataBase64Value& Value);
+    static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeBase64Entry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FLootLockerAdminMetadataBase64Value& Value);
 
     /*
      For internal use only
      */
-    void LOOTLOCKERADMINSDKEDITOR_API _INTERNAL_SetJsonRepresentation(const FJsonObject& obj);
-    static LOOTLOCKERADMINSDKEDITOR_API FLootLockerAdminMetadataEntry _INTERNAL_MakeEntryExceptValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerAdminMetadataTypes Type);
+    void LOOTLOCKERADMINSDK_API _INTERNAL_SetJsonRepresentation(const FJsonObject& obj);
+    static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry _INTERNAL_MakeEntryExceptValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerAdminMetadataTypes Type);
 private:
 
     FJsonObject EntryAsJson;
@@ -302,7 +302,7 @@ struct FLootLockerAdminMetadataOperationsResponse : public FLootLockerAdminRespo
 /*
  Blueprint response delegate for creating a currency
  */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseBP, FLootLockerAdminResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseBP, FLootLockerAdminMetadataOperationsResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -311,13 +311,13 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseBP, 
 /*
  C++ response delegate for creating a currency
  */
-DECLARE_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseDelegate, FLootLockerAdminResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseDelegate, FLootLockerAdminMetadataOperationsResponse);
 
 /**
  *
  */
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminMetadataRequest : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminMetadataRequest : public UObject
 {
     GENERATED_BODY()
     public:

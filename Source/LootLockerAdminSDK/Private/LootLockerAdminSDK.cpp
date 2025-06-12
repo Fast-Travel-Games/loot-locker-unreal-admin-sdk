@@ -32,5 +32,5 @@ void FLootLockerAdminSDKModule::ShutdownModule()
 }
 
 #undef LOCTEXT_NAMESPACE
-	
+
 IMPLEMENT_MODULE(FLootLockerAdminSDKModule, LootLockerAdminSDKEditor)

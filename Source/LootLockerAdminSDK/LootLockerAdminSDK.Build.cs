@@ -2,30 +2,20 @@
 
 using UnrealBuildTool;
 
-public class LootLockerAdminSDKEditor : ModuleRules
+public class LootLockerAdminSDK : ModuleRules
 {
-	public LootLockerAdminSDKEditor(ReadOnlyTargetRules Target) : base(Target)
+	public LootLockerAdminSDK(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-		
-		PublicIncludePaths.AddRange(
-			new string[] {
-			}
-			);
-				
-		
-		PrivateIncludePaths.AddRange(
-			new string[] {
-			}
-			);
-			
+
+		PublicIncludePaths.AddRange(new string[]{});
+		PrivateIncludePaths.AddRange(new string[]{});
 		
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
 				"Core",
-			}
-			);
+			});
 
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
@@ -36,14 +26,8 @@ public class LootLockerAdminSDKEditor : ModuleRules
 				"Json",
 				"JsonUtilities",
 				"Projects",
-			}
-			);
-		
-		
-		DynamicallyLoadedModuleNames.AddRange(
-			new string[]
-			{
-			}
-			);
+			});
+
+		DynamicallyLoadedModuleNames.AddRange(new string[] {});
 	}
 }

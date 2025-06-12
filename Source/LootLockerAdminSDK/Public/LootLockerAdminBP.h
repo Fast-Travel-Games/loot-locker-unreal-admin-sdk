@@ -12,7 +12,7 @@
 #include "LootLockerAdminBP.generated.h"
 
 UCLASS(Blueprintable)
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminBP : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminBP : public UObject
 {
     GENERATED_BODY()
  

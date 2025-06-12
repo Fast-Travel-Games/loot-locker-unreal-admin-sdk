@@ -52,7 +52,7 @@ void ULootLockerAdmin::TogglePurchasableStatus(const FString& CatalogItemId, con
 
 void ULootLockerAdmin::CreateCurrency(const FString& Name, const FString& Code, const FString& DenominationName, const FLootLockerAdminCreateCurrencyResponseDelegate& OnCompletedRequest)
 {
-	ULootLockerAdminCurrencyRequest::CreateCurrency(Name, Code, DenominationName, FLootLockerAdminCreateCurrencyResponseBP(), OnCompletedRequest);	
+	ULootLockerAdminCurrencyRequest::CreateCurrency(Name, Code, DenominationName, FLootLockerAdminCreateCurrencyResponseBP(), OnCompletedRequest);
 }
 
 // METADATA

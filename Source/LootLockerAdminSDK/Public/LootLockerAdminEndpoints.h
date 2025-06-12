@@ -37,7 +37,7 @@ public:
 };
 
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminEndpoints : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminEndpoints : public UObject
 {
     GENERATED_BODY()
 public:

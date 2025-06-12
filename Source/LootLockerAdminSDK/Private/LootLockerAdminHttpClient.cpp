@@ -212,7 +212,7 @@ void ULootLockerAdminHttpClient::UploadRawFile_Internal(const TArray<uint8>& Raw
 			}
 			LogFailedRequestInformation(response, InRequest.RequestType, InRequest.EndPoint, FString("Data Stream"), Response->GetAllHeaders());
 		}
-		else 
+		else
 		{
 			LogSuccessfulRequestInformation(response, InRequest.RequestType, InRequest.EndPoint, FString("Data Stream"), Response->GetAllHeaders());
 		}

@@ -108,7 +108,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateCurrencyResponseDelegate, FLootL
  *
  */
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminCurrencyRequest : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminCurrencyRequest : public UObject
 {
     GENERATED_BODY()
     public:

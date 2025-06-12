@@ -8,7 +8,7 @@
 const TMultiMap<FString,FString> EmptyQueryParams;
 
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminEnumUtils : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminEnumUtils : public UObject
 {
     GENERATED_BODY()
 public:

@@ -6,7 +6,7 @@
 
 
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminStateData : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminStateData : public UObject
 {
 	GENERATED_BODY()
     static FString AdminToken;

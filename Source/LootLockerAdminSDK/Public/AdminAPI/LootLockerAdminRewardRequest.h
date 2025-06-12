@@ -99,7 +99,7 @@ DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseDelegate, FLootLock
  *
  */
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminRewardRequest : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminRewardRequest : public UObject
 {
     GENERATED_BODY()
     public:

@@ -17,7 +17,7 @@
 #include "LootLockerAdminHttpClient.generated.h"
 
 UCLASS()
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminHttpClient : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminHttpClient : public UObject
 {
 	GENERATED_BODY()
 public:

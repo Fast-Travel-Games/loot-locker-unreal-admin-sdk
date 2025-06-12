@@ -10,7 +10,7 @@
 #include "LootLockerAdminConfig.generated.h"
 
 UCLASS(Config = Editor, DefaultConfig, meta = (DisplayName = "LootLocker Admin SDK Settings"))
-class LOOTLOCKERADMINSDKEDITOR_API ULootLockerAdminConfig : public UObject
+class LOOTLOCKERADMINSDK_API ULootLockerAdminConfig : public UObject
 {
 	GENERATED_BODY()
 public:
