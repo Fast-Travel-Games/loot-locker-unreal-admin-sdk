@@ -1,7 +1,7 @@
 
 
 #include "LootLockerAdminHttpClient.h"
-#include "LootLockerAdminConfig.h"
+#include "LootLockerAdminSDK.h"
 #include "Runtime/Launch/Resources/Version.h"
 #include "Containers/Array.h"
 #include "JsonObjectConverter.h"
@@ -69,7 +69,7 @@ void ULootLockerAdminHttpClient::SendRequest_Internal(HTTPRequest InRequest) con
         DelimitedHeaders += TEXT("    ") + Header + TEXT("\n");
 	}
 	UE_LOG(LogLootLockerAdmin, Verbose, TEXT("Request %s to endpoint %s\n  With headers %s\n  And with content: %s"), *Request->GetVerb(), *Request->GetURL(), *DelimitedHeaders, *InRequest.Data);
-	
+
 	Request->OnProcessRequestComplete().BindLambda([InRequest](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
 	{
 		if (!Response.IsValid())
@@ -182,7 +182,7 @@ void ULootLockerAdminHttpClient::UploadRawFile_Internal(const TArray<uint8>& Raw
 	}
 
 	UE_LOG(LogLootLockerAdmin, Verbose, TEXT("Request %s to endpoint %s\n  With headers %s\n"), *Request->GetVerb(), *Request->GetURL(), *DelimitedHeaders);
-	
+
 	Request->OnProcessRequestComplete().BindLambda([this, InRequest](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
 	{
 		if (!Response.IsValid())

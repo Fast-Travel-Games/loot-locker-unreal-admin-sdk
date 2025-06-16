@@ -28,7 +28,7 @@ struct FLootLockerAdminCurrency
 	 * The game id the currency belong to
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Game_id = "";	
+	FString Game_id = "";
 	/**
 	 * The name of the currency
 	 */

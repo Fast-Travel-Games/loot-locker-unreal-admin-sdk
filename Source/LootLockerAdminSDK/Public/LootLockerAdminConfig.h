@@ -4,8 +4,6 @@
 #include "CoreMinimal.h"
 #include "LootLockerAdminConfig.generated.h"
 
-DECLARE_LOG_CATEGORY_EXTERN(LogLootLockerAdmin, Log, All);
-
 UCLASS(Config = Editor, DefaultConfig, meta = (DisplayName = "LootLocker Admin SDK Settings"))
 class LOOTLOCKERADMINSDK_API ULootLockerAdminConfig : public UObject
 {

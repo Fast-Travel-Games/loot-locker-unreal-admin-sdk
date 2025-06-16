@@ -158,7 +158,7 @@ private:
 					
 				}
 			}
-			FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, UrlEncodedPathParams);        	
+			FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, UrlEncodedPathParams);
 
             const FString optionalToken = ULootLockerAdminStateData::GetAdminToken();
             if (!optionalToken.IsEmpty()) {

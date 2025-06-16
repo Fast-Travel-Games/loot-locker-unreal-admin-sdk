@@ -6,10 +6,10 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 
-
-
 #define LOCTEXT_NAMESPACE "FLootLockerAdminSDKModule"
- 
+
+DEFINE_LOG_CATEGORY(LogLootLockerAdmin);
+
 void FLootLockerAdminSDKModule::StartupModule()
 {
 #if WITH_EDITOR
