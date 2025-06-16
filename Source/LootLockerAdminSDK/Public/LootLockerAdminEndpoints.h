@@ -54,6 +54,7 @@ public:
 	
 	// Currency
 	static FLootLockerAdminEndPoint CreateCurrency;
+	static FLootLockerAdminEndPoint ListCurrencies;
 
 	// Metadata
 	static FLootLockerAdminEndPoint MetadataOperations;

@@ -229,7 +229,5 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdminAssetRequest : public UObject
 
 	static void GetAssetContexts(const FLootLockerAdminGetAssetContextsResponseBP& OnCompletedRequestBP = FLootLockerAdminGetAssetContextsResponseBP(), const FLootLockerAdminGetAssetContextsResponseDelegate& OnCompletedRequest = FLootLockerAdminGetAssetContextsResponseDelegate());
     static void CreateAsset(const int Context, const FString& Name, const bool bUniqueInstance, const FLootLockerAdminCreateAssetResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateAssetResponseBP(), const FLootLockerAdminCreateAssetResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateAssetResponseDelegate());
-	// SET KEY/VALUE ON ASSET or just use metadata!?
-
 	static void ActivateAsset(const int AssetId, const bool bActive, const FLootLockerAdminActivateAssetResponseBP& OnCompletedRequestBP = FLootLockerAdminActivateAssetResponseBP(), const FLootLockerAdminActivateAssetResponseDelegate& OnCompletedRequest = FLootLockerAdminActivateAssetResponseDelegate());
 };
