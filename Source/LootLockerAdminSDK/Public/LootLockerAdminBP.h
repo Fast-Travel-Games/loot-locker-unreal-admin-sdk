@@ -128,6 +128,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Currency")
 	static void CreateCurrency(const FString& Name, const FString& Code, const FString& DenominationName, const FLootLockerAdminCreateCurrencyResponseBP& OnCompletedRequest);
 
+	/**
+	 * Get a list of available currencies for the game
+	 *
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Currency")
+	static void ListCurrencies(const FLootLockerAdminListCurrenciesResponseBP& OnCompletedRequest);
+
 	//==================================================
 	// Metadata
 	//==================================================

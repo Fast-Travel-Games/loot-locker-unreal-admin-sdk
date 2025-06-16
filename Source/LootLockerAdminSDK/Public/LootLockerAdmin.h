@@ -113,6 +113,13 @@ public:
 	 */
 	static void CreateCurrency(const FString& Name, const FString& Code, const FString& DenominationName, const FLootLockerAdminCreateCurrencyResponseDelegate& OnCompletedRequest);
 
+	/**
+	 * Get a list of available currencies for the game
+	 *
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void ListCurrencies(const FLootLockerAdminListCurrenciesResponseDelegate& OnCompletedRequest);
+
 	//==================================================
 	// Metadata
 	//==================================================

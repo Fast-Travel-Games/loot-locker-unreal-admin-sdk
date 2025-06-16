@@ -57,6 +57,11 @@ void ULootLockerAdminBP::CreateCurrency(const FString& Name, const FString& Code
 	ULootLockerAdminCurrencyRequest::CreateCurrency(Name, Code, DenominationName, OnCompletedRequest);
 }
 
+void ULootLockerAdminBP::ListCurrencies(const FLootLockerAdminListCurrenciesResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminCurrencyRequest::ListCurrencies(OnCompletedRequest);
+}
+
 // METADATA
 
 void ULootLockerAdminBP::MetadataOperations(const ELootLockerAdminMetadataSources Source, const FString& SourceId, const TArray<FLootLockerAdminMetadataOperationsAction>& Actions, const FLootLockerAdminMetadataOperationsResponseBP& OnCompletedRequest)
