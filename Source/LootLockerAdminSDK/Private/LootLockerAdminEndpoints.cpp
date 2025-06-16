@@ -2,11 +2,10 @@
 #include "LootLockerAdminEndpoints.h"
 
 #ifdef LOOTLOCKER_USE_STAGE_URL
-FString ULootLockerAdminEndpoints::GameBaseUrl = "https://{domainKey}api.stage.internal.dev.lootlocker.cloud/";
+FString ULootLockerAdminEndpoints::AdminApiUrl = "https://api.stage.internal.dev.lootlocker.cloud/admin/";
 #else
-FString ULootLockerAdminEndpoints::GameBaseUrl = "https://{domainKey}api.lootlocker.com/";
+FString ULootLockerAdminEndpoints::AdminApiUrl = "https://api.lootlocker.com/admin/";
 #endif
-FString ULootLockerAdminEndpoints::AdminApiUrlSuffix = "admin/";
 
 // Assets
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateAsset = InitEndpoint("v1/game/{0}/asset", ELootLockerAdminHTTPMethod::POST);
@@ -32,10 +31,10 @@ FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateGroup = InitEndpoint("
 // Session
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateSession = InitEndpoint("v1/session", ELootLockerAdminHTTPMethod::POST);
 
-FLootLockerAdminEndPoint ULootLockerAdminEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerAdminHTTPMethod Method, const FString& BaseUrlSuffix)
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerAdminHTTPMethod Method)
 {
 	FLootLockerAdminEndPoint Result;
-	Result.endpoint = GameBaseUrl + BaseUrlSuffix + Endpoint;
+	Result.endpoint = AdminApiUrl + Endpoint;
 	Result.requestMethod = Method;
 	return Result;
 }

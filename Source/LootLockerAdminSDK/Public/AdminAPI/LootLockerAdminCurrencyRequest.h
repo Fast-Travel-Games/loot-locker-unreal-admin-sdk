@@ -25,6 +25,11 @@ struct FLootLockerAdminCurrency
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Id;
 	/**
+	 * The game id the currency belong to
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Game_id = "";	
+	/**
 	 * The name of the currency
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
@@ -44,13 +49,7 @@ struct FLootLockerAdminCurrency
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Created_at;
-	/**
-	 * The time that this currency was published
-	 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Published_at;
 };
-
 
 //==================================================
 // Request Definitions

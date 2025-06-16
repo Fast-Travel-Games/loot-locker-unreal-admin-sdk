@@ -35,7 +35,7 @@ void ULootLockerAdminBP::ListCatalogs(const FLootLockerAdminListCatalogsResponse
 	ULootLockerAdminCatalogRequest::ListCatalogs(OnCompletedRequest);
 }
 
-void ULootLockerAdminBP::CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const FString& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequest)
+void ULootLockerAdminBP::CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequest)
 {
 	ULootLockerAdminCatalogRequest::CreateCatalogListing(CatalogId, EntityId, EntityKind, OnCompletedRequest);
 }

@@ -92,7 +92,7 @@ public:
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Catalog")
-	static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const FString& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequest);
+	static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequest);
 
 	/**
 	 * 

@@ -11,6 +11,19 @@
 // Data Type Definitions
 //==================================================
 
+/**
+ * Possible entity kinds that catalog entries can have
+ */
+UENUM(BlueprintType, Category = "LootLockerAdmin")
+enum class ELootLockerAdminCatalogEntityKind : uint8
+{
+	Asset = 0,
+	Currency = 1,
+	Progression_Points = 2,
+	Progression_Reset = 3,
+	Group = 4,
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerAdminCatalogInfo
 {
@@ -85,7 +98,6 @@ struct FLootLockerAdminCreateCatalogListingRequest : public FLootLockerAdminEmpt
 {
 	GENERATED_BODY()
 
-	// IS int Game_id mandatory ?! (needed in the path param anyways..)
 	/*
  
 	*/
@@ -230,7 +242,7 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdminCatalogRequest : public UObject
     ULootLockerAdminCatalogRequest();
 
 	static void AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseBP& OnCompletedRequestBP = FLootLockerAdminAddPriceResponseBP(), const FLootLockerAdminAddPriceResponseDelegate& OnCompletedRequest = FLootLockerAdminAddPriceResponseDelegate());
-    static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const FString& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateCatalogListingResponseBP(), const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateCatalogListingResponseDelegate());
+    static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateCatalogListingResponseBP(), const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateCatalogListingResponseDelegate());
 	static void ListCatalogs(const FLootLockerAdminListCatalogsResponseBP& OnCompletedRequestBP = FLootLockerAdminListCatalogsResponseBP(), const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest = FLootLockerAdminListCatalogsResponseDelegate());
 	static void TogglePurchasableStatus(const FString& CatalogItemId, const FLootLockerAdminTogglePurchasableStatusResponseBP& OnCompletedRequestBP = FLootLockerAdminTogglePurchasableStatusResponseBP(), const FLootLockerAdminTogglePurchasableStatusResponseDelegate& OnCompletedRequest = FLootLockerAdminTogglePurchasableStatusResponseDelegate());
 };

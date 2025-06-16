@@ -80,7 +80,7 @@ public:
 	 * @param EntityKind
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
-	static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const FString& EntityKind, const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest);
+	static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest);
 
 	/**
 	 * 

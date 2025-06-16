@@ -7,7 +7,6 @@
 #include "HttpModule.h"
 
 #include "JsonObjectConverter.h"
-#include "LootLockerAdminConfig.h"
 #include "LootLockerAdminEndpoints.h"
 #include "LootLockerAdminResponse.h"
 #include "LootLockerAdminStateData.h"
@@ -121,8 +120,6 @@ private:
         static HTTPRequest MakeRaw(FString ContentString, FLootLockerAdminEndPoint Endpoint, const TArray<FStringFormatArg>& InOrderedArguments, const TMultiMap<FString, FString> QueryParams, const BluePrintDelegate& OnCompletedRequestBP, const CppDelegate& OnCompletedRequest, const typename ResponseInspector<ResponseType>::FLootLockerAdminResponseInspectorCallback& ResponseInspectorCallback = ResponseInspector<ResponseType>::FLootLockerAdminResponseInspectorCallback::CreateLambda([](const ResponseType& Ignored) {}), TMap<FString, FString> CustomHeaders = TMap<FString, FString>(), const FString& ContentType = "")
         {
             // Calculate endpoint
-            const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
-            FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, FStringFormatNamedArguments{ {"domainKey", Config && !Config->LootLockerDomainKey.IsEmpty() ? Config->LootLockerDomainKey + "." : ""} });
 	       	TArray<FStringFormatArg> UrlEncodedPathParams;
 			for (const FStringFormatArg& InOrderedArgument : InOrderedArguments)
 			{
@@ -161,7 +158,7 @@ private:
 					
 				}
 			}
-			EndpointWithArguments = FString::Format(*EndpointWithArguments, UrlEncodedPathParams);        	
+			FString EndpointWithArguments = FString::Format(*Endpoint.endpoint, UrlEncodedPathParams);        	
 
             const FString optionalToken = ULootLockerAdminStateData::GetAdminToken();
             if (!optionalToken.IsEmpty()) {

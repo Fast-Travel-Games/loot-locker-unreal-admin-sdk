@@ -20,5 +20,6 @@ void ULootLockerAdminCurrencyRequest::CreateCurrency(const FString& Name, const 
 
 void ULootLockerAdminCurrencyRequest::ListCurrencies(const FLootLockerAdminListCurrenciesResponseBP& OnResponseCompletedBP, const FLootLockerAdminListCurrenciesResponseDelegate& OnResponseCompleted)
 {
-	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListCurrenciesResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::ListCurrencies, {}, {}, OnResponseCompletedBP, OnResponseCompleted);
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListCurrenciesResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::ListCurrencies, {Config->GameID}, {}, OnResponseCompletedBP, OnResponseCompleted);
 }

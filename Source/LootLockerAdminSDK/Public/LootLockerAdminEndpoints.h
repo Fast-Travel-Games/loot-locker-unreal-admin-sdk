@@ -66,8 +66,7 @@ public:
 	static FLootLockerAdminEndPoint CreateSession;
 
 private:
-    static FString GameBaseUrl;
-    static FString AdminApiUrlSuffix;
+    static FString AdminApiUrl;
 
-    static FLootLockerAdminEndPoint InitEndpoint(const FString& Endpoint, ELootLockerAdminHTTPMethod Method, const FString& BaseUrlSuffix = AdminApiUrlSuffix);
+    static FLootLockerAdminEndPoint InitEndpoint(const FString& Endpoint, ELootLockerAdminHTTPMethod Method);
 };

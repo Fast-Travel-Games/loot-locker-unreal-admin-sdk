@@ -1,12 +1,12 @@
 
 
 #include "LootLockerAdminHttpClient.h"
+#include "LootLockerAdminConfig.h"
 #include "Runtime/Launch/Resources/Version.h"
 #include "Containers/Array.h"
 #include "JsonObjectConverter.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Misc/FileHelper.h"
-#include "LootLockerAdminLogger.h"
 #include "Interfaces/IPluginManager.h"
 #include "Misc/Guid.h"
 
@@ -33,7 +33,7 @@ ULootLockerAdminHttpClient::ULootLockerAdminHttpClient()
 		if (Ptr.IsValid())
 		{
 			SDKVersion = Ptr->GetDescriptor().VersionName;
-			ULootLockerAdminLogger::Log(ELootLockerAdminLogLevel::Verbose, FString::Format(TEXT("LootLockerAdmin version: v{0}"), { SDKVersion }));
+			UE_LOG(LogLootLockerAdmin, Verbose, TEXT("LootLockerAdmin version: v%s"), *SDKVersion);
 		}
 	}
 }
@@ -68,8 +68,8 @@ void ULootLockerAdminHttpClient::SendRequest_Internal(HTTPRequest InRequest) con
 	{
         DelimitedHeaders += TEXT("    ") + Header + TEXT("\n");
 	}
-	ULootLockerAdminLogger::Log(ELootLockerAdminLogLevel::Verbose, FString::Format(TEXT("Request {0} to endpoint {1}\n  With headers {2}\n  And with content: {3}"), { Request->GetVerb(), *Request->GetURL(), *DelimitedHeaders, *InRequest.Data }));
-
+	UE_LOG(LogLootLockerAdmin, Verbose, TEXT("Request %s to endpoint %s\n  With headers %s\n  And with content: %s"), *Request->GetVerb(), *Request->GetURL(), *DelimitedHeaders, *InRequest.Data);
+	
 	Request->OnProcessRequestComplete().BindLambda([InRequest](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
 	{
 		if (!Response.IsValid())
@@ -181,8 +181,8 @@ void ULootLockerAdminHttpClient::UploadRawFile_Internal(const TArray<uint8>& Raw
         DelimitedHeaders += TEXT("    ") + Header + TEXT("\n");
 	}
 
-	ULootLockerAdminLogger::Log(ELootLockerAdminLogLevel::Verbose, FString::Format(TEXT("Request {0} to endpoint {1}\n  With headers {2}\n  And with content: {3}"), { Request->GetVerb(), Request->GetURL(), DelimitedHeaders, FString("File Content") }));
-
+	UE_LOG(LogLootLockerAdmin, Verbose, TEXT("Request %s to endpoint %s\n  With headers %s\n"), *Request->GetVerb(), *Request->GetURL(), *DelimitedHeaders);
+	
 	Request->OnProcessRequestComplete().BindLambda([this, InRequest](FHttpRequestPtr Req, FHttpResponsePtr Response, bool bWasSuccessful)
 	{
 		if (!Response.IsValid())
@@ -260,7 +260,7 @@ void ULootLockerAdminHttpClient::LogFailedRequestInformation(const FLootLockerAd
 		LogString += FString::Format(TEXT("\n   Response Data: {0}"), { Response.FullTextFromServer });
 	}
 	LogString += "\n###";
-	ULootLockerAdminLogger::Log(ELootLockerAdminLogLevel::Warning, LogString);
+	UE_LOG(LogLootLockerAdmin, Warning, TEXT("%s"), *LogString);
 }
 
 void ULootLockerAdminHttpClient::LogSuccessfulRequestInformation(const FLootLockerAdminResponse& Response, const FString& RequestMethod, const FString& Endpoint, const FString& Data, const TArray<FString>& ResponseHeaders)
@@ -281,5 +281,5 @@ void ULootLockerAdminHttpClient::LogSuccessfulRequestInformation(const FLootLock
 
 	LogString += FString::Format(TEXT("\n   Response Data: {0}"), { Response.FullTextFromServer });
 	LogString += "\n###";
-	ULootLockerAdminLogger::Log(ELootLockerAdminLogLevel::VeryVerbose, LogString);
+	UE_LOG(LogLootLockerAdmin, VeryVerbose, TEXT("%s"), *LogString);
 }
