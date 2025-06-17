@@ -48,7 +48,6 @@ void FLootLockerAdminMetadataEntry::SetRawValue(const TSharedPtr<FJsonValue>& Va
 	Type = ELootLockerAdminMetadataTypes::Json;
 }
 
-
 void FLootLockerAdminMetadataEntry::SetValueAsJsonObject(const FJsonObject& Value)
 {
 	EntryAsJson.SetObjectField(TEXT("value"), MakeShared<FJsonObject>(Value));
@@ -63,7 +62,12 @@ void FLootLockerAdminMetadataEntry::SetValueAsJsonArray(const TArray<TSharedPtr<
 
 void FLootLockerAdminMetadataEntry::SetValueAsBase64(const FLootLockerAdminMetadataBase64Value& Value)
 {
-	SetValueAsUStruct(Value);
+	TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(Value);
+	if (!JsonObject.IsValid())
+	{
+		return;
+	}
+	SetValueAsJsonObject(*JsonObject);
 }
 
 FLootLockerAdminMetadataEntry FLootLockerAdminMetadataEntry::MakeStringEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FString& Value)
@@ -147,7 +151,7 @@ FLootLockerAdminMetadataEntry FLootLockerAdminMetadataEntry::_INTERNAL_MakeEntry
 		TagArray.Add(MakeShared<FJsonValueString>(Tag));
 	}
 	JsonRepresentation.SetArrayField(TEXT("tags"), TagArray);
-	JsonRepresentation.SetStringField(TEXT("type"), ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerServerMetadataTypes"), static_cast<int32>(Type)).ToLower());
+	JsonRepresentation.SetStringField(TEXT("type"), ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerAdminMetadataTypes"), static_cast<int32>(Type)).ToLower());
 	Entry.EntryAsJson = JsonRepresentation;
 	return Entry;
 }
@@ -193,8 +197,8 @@ void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminM
 			return;
 		}
 
-		JsonEntry->SetStringField(TEXT("type"), ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerServerMetadataTypes"), static_cast<int32>(ActionToPerform.Entry.Type)).ToLower());
-		JsonEntry->SetStringField(TEXT("action"), ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerServerMetadataActions"), static_cast<int32>(ActionToPerform.Action)).ToLower());
+		JsonEntry->SetStringField(TEXT("type"), ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerAdminMetadataTypes"), static_cast<int32>(ActionToPerform.Entry.Type)).ToLower());
+		JsonEntry->SetStringField(TEXT("action"), ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerAdminMetadataActions"), static_cast<int32>(ActionToPerform.Action)).ToLower());
 
 		TSharedPtr<FJsonValue> RawEntryValue;
 		if (!ActionToPerform.Entry.TryGetRawValue(RawEntryValue))
@@ -212,6 +216,6 @@ void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminM
 
 	ManuallySerializedRequest.SetArrayField(TEXT("entries"), entries);
 	FString SerializedRequest = LootLockerAdminUtilities::FStringFromJsonObject(MakeShared<FJsonObject>(ManuallySerializedRequest));
-	ULootLockerAdminHttpClient::SendRawRequest<FLootLockerAdminMetadataOperationsResponse>(SerializedRequest, ULootLockerAdminEndpoints::MetadataOperations, {}, {}, OnCompletedRequestBP, OnCompletedRequest);
-
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRawRequest<FLootLockerAdminMetadataOperationsResponse>(SerializedRequest, ULootLockerAdminEndpoints::MetadataOperations, {Config->GameID}, {}, OnCompletedRequestBP, OnCompletedRequest);
 }

@@ -14,14 +14,16 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdmin : public UObject
 public:
     
     //==================================================
-    // Authentication  TODO
+    // Authentication
     //==================================================
     
     /**
-     * Start a session connecting to the LootLocker services with the server API key TODO 
+     * Start a session by logging in with your LootLocker Email and Password. Need to be a registered user before.
      * https://ref.lootlocker.com/admin/api-5291166
      *
-     * @param OnCompletedRequest Delegate for handling the response TODO
+     * @param Email
+     * @param Password
+     * @param OnCompletedRequest Delegate for handling the response
      */
     static void StartSession(const FString& Email, const FString& Password, const FLootLockerAdminCreateSessionResponseDelegate& OnCompleteRequest);
 
@@ -137,7 +139,8 @@ public:
 
 	/**
 	 * Factory method that makes an FLootLockerAdminMetadataEntry with a UStruct Value
-	 * @param Entry The key you want for this entry
+	 * 
+	 * @param Key The key you want for this entry
 	 * @param Tags The tags you want for this entry
 	 * @param Access The access level you want to set for this entry
 	 * @param Value The UStruct object that you to be converted to json and set as the value for this metadata entry

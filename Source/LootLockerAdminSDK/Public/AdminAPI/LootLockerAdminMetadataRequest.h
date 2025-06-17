@@ -148,22 +148,6 @@ struct FLootLockerAdminMetadataEntry
      Set the value as a JsonValue.
      */
     LOOTLOCKERADMINSDK_API void SetRawValue(const TSharedPtr<FJsonValue>& Value);
-    /*
-     Set the value as the provided UStruct object. Returns true if value could be serialized.
-     */
-    template<typename T>
-    LOOTLOCKERADMINSDK_API bool SetValueAsUStruct(const T& Value)
-	{
-		TSharedPtr<FJsonObject> JsonObject = FJsonObjectConverter::UStructToJsonObject(Value);
-		if(!JsonObject.IsValid())
-		{
-			return false;
-		}
-		SetValueAsJsonObject(*JsonObject);
-		return true;
-	}
-
-
 	/*
      Set the value as a Json Object.
      */
