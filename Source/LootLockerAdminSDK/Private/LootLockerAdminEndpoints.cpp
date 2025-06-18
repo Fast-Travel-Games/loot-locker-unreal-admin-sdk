@@ -11,6 +11,7 @@ FString ULootLockerAdminEndpoints::AdminApiUrl = "https://api.lootlocker.com/adm
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateAsset = InitEndpoint("v1/game/{0}/asset", ELootLockerAdminHTTPMethod::POST);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::GetAssetContexts = InitEndpoint("v1/game/{0}/assets/contexts", ELootLockerAdminHTTPMethod::GET);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ActivateAsset = InitEndpoint("v1/game/{0}/asset/{1}/activate", ELootLockerAdminHTTPMethod::POST);
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::GetAssets = InitEndpoint("v1/game/{0}/assets", ELootLockerAdminHTTPMethod::GET);
 
 // Catalog
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::AddPrice = InitEndpoint("game/{0}/catalog/price", ELootLockerAdminHTTPMethod::PUT);

@@ -32,8 +32,8 @@ public:
     //==================================================
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	static void GetAssetContexts(const FLootLockerAdminGetAssetContextsResponseDelegate& OnCompletedRequest);
@@ -50,14 +50,22 @@ public:
     static void CreateAsset(const int Context, const FString& Name, const bool bUniqueInstance, const FLootLockerAdminCreateAssetResponseDelegate& OnCompletedRequest);
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param AssetId
 	 * @param bActive
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	static void ActivateAsset(const int AssetId, const bool bActive, const FLootLockerAdminActivateAssetResponseDelegate& OnCompletedRequest);
-	
+
+	/**
+	*
+	*
+	* @param bIncludeInactive
+	* @param OnCompletedRequest Delegate for handling the server response
+	*/
+	static void GetAssets(const bool bIncludeInactive, const FLootLockerAdminGetAssetsResponseDelegate& OnCompletedRequest);
+
 	//==================================================
 	// Catalog
 	//==================================================

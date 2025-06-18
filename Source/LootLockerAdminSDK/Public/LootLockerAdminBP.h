@@ -37,16 +37,16 @@ public:
     //==================================================
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Assets")
 	static void GetAssetContexts(const FLootLockerAdminGetAssetContextsResponseBP& OnCompletedRequest);
 	
     /**
-     * 
-     * 
+     *
+     *
      *
      * @param Context
      * @param Name
@@ -57,14 +57,23 @@ public:
     static void CreateAsset(const int Context, const FString& Name, const bool bUniqueInstance, const FLootLockerAdminCreateAssetResponseBP& OnCompletedRequest);
 	
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param AssetId
 	 * @param bActive
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Assets")
 	static void ActivateAsset(const int AssetId, const bool bActive, const FLootLockerAdminActivateAssetResponseBP& OnCompletedRequest);
+
+	/**
+	 *
+	 *
+	 * @param bIncludeInactive
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Assets")
+	static void GetAssets(const bool bIncludeInactive, const FLootLockerAdminGetAssetsResponseBP& OnCompletedRequest);
 
 	//==================================================
 	// Catalog
@@ -83,8 +92,8 @@ public:
 	static void AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseBP& OnCompletedRequest);
 	
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 *
 	 * @param CatalogId
 	 * @param EntityId
@@ -95,16 +104,16 @@ public:
 	static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequest);
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Catalog")
 	static void ListCatalogs(const FLootLockerAdminListCatalogsResponseBP& OnCompletedRequest);
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 *
 	 * @param CatalogItemId
 	 * @param OnCompletedRequest Delegate for handling the server response
@@ -117,8 +126,8 @@ public:
 	//==================================================
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 *
 	 * @param Name
 	 * @param Code

@@ -45,6 +45,7 @@ public:
     static FLootLockerAdminEndPoint CreateAsset;
 	static FLootLockerAdminEndPoint GetAssetContexts;
 	static FLootLockerAdminEndPoint ActivateAsset;
+	static FLootLockerAdminEndPoint GetAssets;
 
 	// Catalog
 	static FLootLockerAdminEndPoint AddPrice;

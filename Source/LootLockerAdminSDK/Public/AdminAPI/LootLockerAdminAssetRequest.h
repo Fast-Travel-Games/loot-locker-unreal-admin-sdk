@@ -68,15 +68,13 @@ struct FLootLockerAdminAssetContext
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	bool Editable = false;
-
-	// TODO: implement "characters":{"Base":true}
 };
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FLootLockerAdminAssetData
+struct FLootLockerAdminCreateAssetData
 {
 	GENERATED_BODY()
 	/*
@@ -99,6 +97,65 @@ struct FLootLockerAdminAssetData
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	int Context_id = 0;
+};
+
+/**
+ * 
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerAdminAssetData
+{
+	GENERATED_BODY()
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	int Id = 0;
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Uuid = "";
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Ulid = "";
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Name = "";
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Created_at = "";
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Last_changed = "";
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	bool Active = false;
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	bool Purchasable = false;
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	bool Tradable = false;
+	/*
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	bool Marketable = false;
 };
 
 //==================================================
@@ -151,7 +208,7 @@ struct FLootLockerAdminActivateAssetRequest : public FLootLockerAdminEmptyReques
 //==================================================
 
 /**
- * 
+ *
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminGetAssetContextsResponse : public FLootLockerAdminResponse
@@ -168,18 +225,39 @@ struct FLootLockerAdminGetAssetContextsResponse : public FLootLockerAdminRespons
 };
 
 /**
- * 
+ *
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminCreateAssetResponse : public FLootLockerAdminResponse
 {
 	GENERATED_BODY()
-    
-	/*
+
+	/**
 	 *
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FLootLockerAdminAssetData Asset;
+	FLootLockerAdminCreateAssetData Asset;
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerAdminGetAssetsResponse : public FLootLockerAdminResponse
+{
+	GENERATED_BODY()
+
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	TArray<FLootLockerAdminAssetData> Assets;
+
+	/**
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	int Asset_count;
 };
 
 //==================================================
@@ -198,6 +276,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateAssetResponseBP, FLootLo
  Blueprint response delegate activating an asset
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminActivateAssetResponseBP, FLootLockerAdminResponse, Response);
+/*
+ Blueprint response delegate getting assets
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminGetAssetsResponseBP, FLootLockerAdminGetAssetsResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -215,6 +297,10 @@ DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateAssetResponseDelegate, FLootLock
  C++ response delegate for activating an asset
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminActivateAssetResponseDelegate, FLootLockerAdminResponse);
+/*
+ C++ response delegate for getting assets
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerAdminGetAssetsResponseDelegate, FLootLockerAdminGetAssetsResponse);
 
 
 /**
@@ -230,4 +316,5 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdminAssetRequest : public UObject
 	static void GetAssetContexts(const FLootLockerAdminGetAssetContextsResponseBP& OnCompletedRequestBP = FLootLockerAdminGetAssetContextsResponseBP(), const FLootLockerAdminGetAssetContextsResponseDelegate& OnCompletedRequest = FLootLockerAdminGetAssetContextsResponseDelegate());
     static void CreateAsset(const int Context, const FString& Name, const bool bUniqueInstance, const FLootLockerAdminCreateAssetResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateAssetResponseBP(), const FLootLockerAdminCreateAssetResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateAssetResponseDelegate());
 	static void ActivateAsset(const int AssetId, const bool bActive, const FLootLockerAdminActivateAssetResponseBP& OnCompletedRequestBP = FLootLockerAdminActivateAssetResponseBP(), const FLootLockerAdminActivateAssetResponseDelegate& OnCompletedRequest = FLootLockerAdminActivateAssetResponseDelegate());
+	static void GetAssets(const bool bIncludeInactive, const FLootLockerAdminGetAssetsResponseBP& OnCompletedRequestBP = FLootLockerAdminGetAssetsResponseBP(), const FLootLockerAdminGetAssetsResponseDelegate& OnCompletedRequest = FLootLockerAdminGetAssetsResponseDelegate());
 };
