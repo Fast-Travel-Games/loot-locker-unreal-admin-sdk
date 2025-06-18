@@ -14,5 +14,5 @@ void ULootLockerAdminRewardRequest::CreateGroup(const TArray<FLootLockerAdminEnt
 	Request.Name = Name;
 	Request.Description = Description;
 	Request.Associations = Entities;
-	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminResponse>(Request, ULootLockerAdminEndpoints::CreateGroup, {Config->GameID}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminCreateGroupResponse>(Request, ULootLockerAdminEndpoints::CreateGroup, {Config->GameID}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }

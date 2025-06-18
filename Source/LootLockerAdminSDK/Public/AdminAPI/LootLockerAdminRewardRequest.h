@@ -15,6 +15,26 @@
  * 
  */
 USTRUCT(BlueprintType)
+struct FLootLockerAdminEntityMetadata
+{
+	GENERATED_BODY()
+
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Key = "purchased_amount";
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Value = "";
+};
+
+/**
+ * 
+ */
+USTRUCT(BlueprintType)
 struct FLootLockerAdminEntity
 {
 	GENERATED_BODY()
@@ -29,7 +49,11 @@ struct FLootLockerAdminEntity
 	*/
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Entity_kind = "";
-	// Do not need metadata so skip it here
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	TArray<FLootLockerAdminEntityMetadata> Metadata;
 };
 
 //==================================================
@@ -37,7 +61,7 @@ struct FLootLockerAdminEntity
 //==================================================
 
 /**
- * 
+ *
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminCreateGroupRequest : public FLootLockerAdminEmptyRequest
@@ -76,6 +100,20 @@ struct FLootLockerAdminCreateGroupRequest : public FLootLockerAdminEmptyRequest
 // Response Definitions
 //==================================================
 
+/**
+ *
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerAdminCreateGroupResponse : public FLootLockerAdminResponse
+{
+	GENERATED_BODY()
+
+	/*
+	 *
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Id = "";
+};
 
 //==================================================
 // Blueprint Delegate Definitions
@@ -84,7 +122,7 @@ struct FLootLockerAdminCreateGroupRequest : public FLootLockerAdminEmptyRequest
 /*
  Blueprint response delegate for creating a currency
  */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseBP, FLootLockerAdminResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseBP, FLootLockerAdminCreateGroupResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -93,7 +131,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseBP, FLootLo
 /*
  C++ response delegate for creating a currency
  */
-DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseDelegate, FLootLockerAdminResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseDelegate, FLootLockerAdminCreateGroupResponse);
 
 /**
  *
