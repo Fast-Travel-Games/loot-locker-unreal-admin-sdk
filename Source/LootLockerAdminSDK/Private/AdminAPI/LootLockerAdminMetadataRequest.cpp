@@ -217,5 +217,5 @@ void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminM
 	ManuallySerializedRequest.SetArrayField(TEXT("entries"), entries);
 	FString SerializedRequest = LootLockerAdminUtilities::FStringFromJsonObject(MakeShared<FJsonObject>(ManuallySerializedRequest));
 	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
-	ULootLockerAdminHttpClient::SendRawRequest<FLootLockerAdminMetadataOperationsResponse>(SerializedRequest, ULootLockerAdminEndpoints::MetadataOperations, {Config->GameID}, {}, OnCompletedRequestBP, OnCompletedRequest);
+	ULootLockerAdminHttpClient::SendRawRequest<FLootLockerAdminMetadataOperationsResponse>(SerializedRequest, ULootLockerAdminEndpoints::MetadataOperations, {Config->GameID}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
