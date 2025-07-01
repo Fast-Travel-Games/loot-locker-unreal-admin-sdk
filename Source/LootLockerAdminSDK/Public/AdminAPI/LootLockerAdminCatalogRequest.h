@@ -131,17 +131,22 @@ struct FLootLockerAdminAddPriceResponse : public FLootLockerAdminResponse
 	 
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Id = "";
+	FString Catalog_id = "";
 	/*
 	 
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Name = "";
+	FString Catalog_item_id = "";
 	/*
 	 
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Created_at = "";	
+	FString Currency_id = "";
+	/*
+	 
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Amount = "";
 };
 
 /**
@@ -156,22 +161,7 @@ struct FLootLockerAdminCreateCatalogListingResponse : public FLootLockerAdminRes
 	 
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Id = "";
-	/*
-	 
-	 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	int Game_id = 0;
-	/*
-	 
-	 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Name = "";
-	/*
-	 
-	 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Created_at = ""; // TODO: convert to FDateTime ??
+	FString Catalog_item_id = "";
 };
 
 /**

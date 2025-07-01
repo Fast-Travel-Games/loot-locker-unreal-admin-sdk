@@ -23,7 +23,7 @@ void ULootLockerAdminCatalogRequest::CreateCatalogListing(const FString& Catalog
 	FLootLockerAdminCreateCatalogListingRequest Request;
 	Request.Catalog_id = CatalogId;
 	Request.Entity_id = EntityId;
-	Request.Entity_kind = UEnum::GetValueAsString(EntityKind).RightChop(UEnum::GetValueAsString(EntityKind).Find("::") + 2);
+	Request.Entity_kind = UEnum::GetValueAsString(EntityKind).ToLower().RightChop(UEnum::GetValueAsString(EntityKind).Find("::") + 2);
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminCreateCatalogListingResponse>(Request, ULootLockerAdminEndpoints::CreateCatalogListing, {Config->GameID}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
