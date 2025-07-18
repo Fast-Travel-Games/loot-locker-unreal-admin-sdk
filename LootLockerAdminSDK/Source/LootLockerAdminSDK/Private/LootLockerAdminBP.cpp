@@ -34,9 +34,14 @@ void ULootLockerAdminBP::GetAssets(const bool bIncludeInactive, const FLootLocke
 
 // CATALOG
 
-void ULootLockerAdminBP::ListCatalogs(const FLootLockerAdminListCatalogsResponseBP& OnCompletedRequest)
+void ULootLockerAdminBP::AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseBP& OnCompletedRequest)
 {
-	ULootLockerAdminCatalogRequest::ListCatalogs(OnCompletedRequest);
+	ULootLockerAdminCatalogRequest::AddPrice(CatalogItemId, CurrencyId, Amount, OnCompletedRequest);
+}
+
+void ULootLockerAdminBP::DeletePrice(const FString& CatalogId, const FString& CatalogItemId, const FString& CurrencyId, const FLootLockerAdminDeletePriceResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminCatalogRequest::DeletePrice(CatalogId, CatalogItemId, CurrencyId, OnCompletedRequest);
 }
 
 void ULootLockerAdminBP::CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequest)
@@ -44,9 +49,14 @@ void ULootLockerAdminBP::CreateCatalogListing(const FString& CatalogId, const FS
 	ULootLockerAdminCatalogRequest::CreateCatalogListing(CatalogId, EntityId, EntityKind, OnCompletedRequest);
 }
 
-void ULootLockerAdminBP::AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseBP& OnCompletedRequest)
+void ULootLockerAdminBP::ListCatalogs(const FLootLockerAdminListCatalogsResponseBP& OnCompletedRequest)
 {
-	ULootLockerAdminCatalogRequest::AddPrice(CatalogItemId, CurrencyId, Amount, OnCompletedRequest);
+	ULootLockerAdminCatalogRequest::ListCatalogs(OnCompletedRequest);
+}
+
+void ULootLockerAdminBP::ListCatalogItems(const FString& CatalogId, const int Count, const FString& After, const FLootLockerAdminListCatalogItemsResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminCatalogRequest::ListCatalogItems(CatalogId, Count, After, OnCompletedRequest);
 }
 
 void ULootLockerAdminBP::TogglePurchasableStatus(const FString& CatalogItemId, const FLootLockerAdminTogglePurchasableStatusResponseBP& OnCompletedRequest)

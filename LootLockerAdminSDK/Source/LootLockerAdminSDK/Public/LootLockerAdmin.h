@@ -80,7 +80,18 @@ public:
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	static void AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseDelegate& OnCompletedRequest);
-	
+
+	/**
+	 *
+	 *
+	 *
+	 * @param CatalogId
+	 * @param CatalogItemId
+	 * @param CurrencyId
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void DeletePrice(const FString& CatalogId, const FString& CatalogItemId, const FString& CurrencyId, const FLootLockerAdminDeletePriceResponseDelegate& OnCompletedRequest);
+
 	/**
 	 * 
 	 * 
@@ -98,6 +109,16 @@ public:
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	static void ListCatalogs(const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest);
+
+	/**
+	 *
+	 *
+	 * @param CatalogId
+	 * @param Count
+	 * @param After
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void ListCatalogItems(const FString& CatalogId, const int Count, const FString& After, const FLootLockerAdminListCatalogItemsResponseDelegate& OnCompletedRequest);
 
 	/**
 	 * 

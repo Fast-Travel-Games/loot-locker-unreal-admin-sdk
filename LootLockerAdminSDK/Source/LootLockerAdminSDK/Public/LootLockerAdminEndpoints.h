@@ -49,8 +49,10 @@ public:
 
 	// Catalog
 	static FLootLockerAdminEndPoint AddPrice;
+	static FLootLockerAdminEndPoint DeletePrice;
 	static FLootLockerAdminEndPoint CreateCatalogListing;
 	static FLootLockerAdminEndPoint ListCatalogs;
+	static FLootLockerAdminEndPoint ListCatalogItems;
 	static FLootLockerAdminEndPoint TogglePurchasableStatus;
 	
 	// Currency

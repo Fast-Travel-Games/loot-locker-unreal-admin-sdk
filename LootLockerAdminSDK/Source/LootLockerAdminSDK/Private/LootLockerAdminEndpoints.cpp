@@ -15,8 +15,10 @@ FLootLockerAdminEndPoint ULootLockerAdminEndpoints::GetAssets = InitEndpoint("v1
 
 // Catalog
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::AddPrice = InitEndpoint("game/{0}/catalog/price", ELootLockerAdminHTTPMethod::PUT);
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::DeletePrice = InitEndpoint("game/{0}/catalog/{1}/item/{2}/currency/{3}", ELootLockerAdminHTTPMethod::DELETE);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateCatalogListing = InitEndpoint("game/{0}/catalog/item", ELootLockerAdminHTTPMethod::POST);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListCatalogs = InitEndpoint("game/{0}/catalogs", ELootLockerAdminHTTPMethod::GET);
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListCatalogItems = InitEndpoint("game/{0}/catalog/{1}/prices", ELootLockerAdminHTTPMethod::GET);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::TogglePurchasableStatus = InitEndpoint("game/{0}/catalog/item/{1}", ELootLockerAdminHTTPMethod::PUT);
 
 // Currency

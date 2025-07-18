@@ -61,6 +61,97 @@ struct FLootLockerAdminCatalogInfo
 	FString Created_at = "";
 };
 
+USTRUCT(BlueprintType)
+struct FLootLockerAdminCatalogPrice
+{
+	GENERATED_BODY()
+
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Amount = "";
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Display_amount = "";
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Currency_code = "";
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Currency_name = "";
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Currency_id = "";
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAdminCatalogEntry
+{
+	GENERATED_BODY()
+
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Entity_kind = "";
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Entity_name = "";
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	TArray<FLootLockerAdminCatalogPrice> Prices;
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Entity_id = "";
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Catalog_listing_id = "";
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	bool Purchasable = false;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAdminCatalogPagination
+{
+	GENERATED_BODY()
+
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Previous_cursor = "";
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Next_cursor = "";
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	int Total = 0;
+};
+
 //==================================================
 // Request Definitions
 //==================================================
@@ -179,6 +270,33 @@ struct FLootLockerAdminListCatalogsResponse : public FLootLockerAdminResponse
 	TArray<FLootLockerAdminCatalogInfo> Catalogs;
 };
 
+/**
+ * 
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerAdminListCatalogItemsResponse : public FLootLockerAdminResponse
+{
+	GENERATED_BODY()
+
+	/*
+
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FLootLockerAdminCatalogInfo Catalog;
+
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	TArray<FLootLockerAdminCatalogEntry> Entries;
+
+	/*
+
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FLootLockerAdminCatalogPagination Pagination;
+};
+
 //==================================================
 // Blueprint Delegate Definitions
 //==================================================
@@ -188,6 +306,10 @@ struct FLootLockerAdminListCatalogsResponse : public FLootLockerAdminResponse
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminAddPriceResponseBP, FLootLockerAdminAddPriceResponse, Response);
 /*
+ Blueprint response delegate for deleting a price from a catalog listing
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminDeletePriceResponseBP, FLootLockerAdminResponse, Response);
+/*
  Blueprint response delegate for creating a catalog listing
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateCatalogListingResponseBP, FLootLockerAdminCreateCatalogListingResponse, Response);
@@ -195,6 +317,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateCatalogListingResponseBP
  Blueprint response delegate for listing available catalogs
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminListCatalogsResponseBP, FLootLockerAdminListCatalogsResponse, Response);
+/*
+ Blueprint response delegate for listing items in a catalog
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminListCatalogItemsResponseBP, FLootLockerAdminListCatalogItemsResponse, Response);
 /*
  Blueprint response delegate for toggle the flag if the item is purchasable
  */
@@ -209,6 +335,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminTogglePurchasableStatusRespons
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminAddPriceResponseDelegate, FLootLockerAdminAddPriceResponse);
 /*
+ C++ response delegate for deleting a price from a catalog listing
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerAdminDeletePriceResponseDelegate, FLootLockerAdminResponse);
+/*
  C++ response delegate for creating a catalog listing
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateCatalogListingResponseDelegate, FLootLockerAdminCreateCatalogListingResponse);
@@ -216,6 +346,10 @@ DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateCatalogListingResponseDelegate, 
  C++ response delegate for listing available catalogs
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminListCatalogsResponseDelegate, FLootLockerAdminListCatalogsResponse);
+/*
+ C++ response delegate for listing items in a catalog
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerAdminListCatalogItemsResponseDelegate, FLootLockerAdminListCatalogItemsResponse);
 /*
  C++ response delegate for toggle the flag if the item is purchasable
  */
@@ -232,7 +366,9 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdminCatalogRequest : public UObject
     ULootLockerAdminCatalogRequest();
 
 	static void AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseBP& OnCompletedRequestBP = FLootLockerAdminAddPriceResponseBP(), const FLootLockerAdminAddPriceResponseDelegate& OnCompletedRequest = FLootLockerAdminAddPriceResponseDelegate());
+	static void DeletePrice(const FString& CatalogId, const FString& CatalogItemId, const FString& CurrencyId, const FLootLockerAdminDeletePriceResponseBP& OnCompletedRequestBP = FLootLockerAdminDeletePriceResponseBP(), const FLootLockerAdminDeletePriceResponseDelegate& OnCompletedRequest = FLootLockerAdminDeletePriceResponseDelegate());
     static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateCatalogListingResponseBP(), const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateCatalogListingResponseDelegate());
 	static void ListCatalogs(const FLootLockerAdminListCatalogsResponseBP& OnCompletedRequestBP = FLootLockerAdminListCatalogsResponseBP(), const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest = FLootLockerAdminListCatalogsResponseDelegate());
+	static void ListCatalogItems(const FString& CatalogId, const int Count, const FString& After, const FLootLockerAdminListCatalogItemsResponseBP& OnCompletedRequestBP = FLootLockerAdminListCatalogItemsResponseBP(), const FLootLockerAdminListCatalogItemsResponseDelegate& OnCompletedRequest = FLootLockerAdminListCatalogItemsResponseDelegate());
 	static void TogglePurchasableStatus(const FString& CatalogItemId, const FLootLockerAdminTogglePurchasableStatusResponseBP& OnCompletedRequestBP = FLootLockerAdminTogglePurchasableStatusResponseBP(), const FLootLockerAdminTogglePurchasableStatusResponseDelegate& OnCompletedRequest = FLootLockerAdminTogglePurchasableStatusResponseDelegate());
 };

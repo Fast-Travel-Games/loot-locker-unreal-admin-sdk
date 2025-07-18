@@ -17,6 +17,12 @@ void ULootLockerAdminCatalogRequest::AddPrice(const FString& CatalogItemId, cons
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminAddPriceResponse>(Request, ULootLockerAdminEndpoints::AddPrice, {Config->GameID}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerAdminCatalogRequest::DeletePrice(const FString& CatalogId, const FString& CatalogItemId, const FString& CurrencyId, const FLootLockerAdminDeletePriceResponseBP& OnCompletedRequestBP, const FLootLockerAdminDeletePriceResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListCatalogsResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::DeletePrice, {Config->GameID, CatalogId, CatalogItemId, CurrencyId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerAdminCatalogRequest::CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequestBP, const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest)
 {
 	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
@@ -31,6 +37,16 @@ void ULootLockerAdminCatalogRequest::ListCatalogs(const FLootLockerAdminListCata
 {
 	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListCatalogsResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::ListCatalogs, {Config->GameID}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
+void ULootLockerAdminCatalogRequest::ListCatalogItems(const FString& CatalogId, const int Count, const FString& After, const FLootLockerAdminListCatalogItemsResponseBP& OnCompletedRequestBP, const FLootLockerAdminListCatalogItemsResponseDelegate& OnCompletedRequest)
+{
+	TMultiMap<FString, FString> QueryParams;
+	if (Count > 0) { QueryParams.Add("per_page", FString::FromInt(Count)); }
+	if (!After.IsEmpty()) { QueryParams.Add("cursor", After); }
+
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListCatalogItemsResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::ListCatalogItems, {Config->GameID, CatalogId}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerAdminCatalogRequest::TogglePurchasableStatus(const FString& CatalogItemId, const FLootLockerAdminTogglePurchasableStatusResponseBP& OnCompletedRequestBP, const FLootLockerAdminTogglePurchasableStatusResponseDelegate& OnCompletedRequest)

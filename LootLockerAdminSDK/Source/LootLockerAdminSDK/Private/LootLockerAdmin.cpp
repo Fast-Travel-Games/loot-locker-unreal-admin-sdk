@@ -33,9 +33,14 @@ void ULootLockerAdmin::GetAssets(const bool bIncludeInactive, const FLootLockerA
 
 // CATALOG
 
-void ULootLockerAdmin::ListCatalogs(const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest)
+void ULootLockerAdmin::AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseDelegate& OnCompletedRequest)
 {
-	ULootLockerAdminCatalogRequest::ListCatalogs(FLootLockerAdminListCatalogsResponseBP(), OnCompletedRequest);
+	ULootLockerAdminCatalogRequest::AddPrice(CatalogItemId, CurrencyId, Amount, FLootLockerAdminAddPriceResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerAdmin::DeletePrice(const FString& CatalogId, const FString& CatalogItemId, const FString& CurrencyId, const FLootLockerAdminDeletePriceResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerAdminCatalogRequest::DeletePrice(CatalogId, CatalogItemId, CurrencyId, FLootLockerAdminDeletePriceResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerAdmin::CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest)
@@ -43,9 +48,14 @@ void ULootLockerAdmin::CreateCatalogListing(const FString& CatalogId, const FStr
 	ULootLockerAdminCatalogRequest::CreateCatalogListing(CatalogId, EntityId, EntityKind, FLootLockerAdminCreateCatalogListingResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerAdmin::AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseDelegate& OnCompletedRequest)
+void ULootLockerAdmin::ListCatalogs(const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest)
 {
-	ULootLockerAdminCatalogRequest::AddPrice(CatalogItemId, CurrencyId, Amount, FLootLockerAdminAddPriceResponseBP(), OnCompletedRequest);
+	ULootLockerAdminCatalogRequest::ListCatalogs(FLootLockerAdminListCatalogsResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerAdmin::ListCatalogItems(const FString& CatalogId, const int Count, const FString& After, const FLootLockerAdminListCatalogItemsResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerAdminCatalogRequest::ListCatalogItems(CatalogId, Count, After, FLootLockerAdminListCatalogItemsResponseBP(), OnCompletedRequest);
 }
 
 void ULootLockerAdmin::TogglePurchasableStatus(const FString& CatalogItemId, const FLootLockerAdminTogglePurchasableStatusResponseDelegate& OnCompletedRequest)

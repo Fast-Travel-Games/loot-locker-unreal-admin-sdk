@@ -96,6 +96,18 @@ public:
 	 *
 	 *
 	 * @param CatalogId
+	 * @param CatalogItemId
+	 * @param CurrencyId
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Catalog")
+	static void DeletePrice(const FString& CatalogId, const FString& CatalogItemId, const FString& CurrencyId, const FLootLockerAdminDeletePriceResponseBP& OnCompletedRequest);
+
+	/**
+	 *
+	 *
+	 *
+	 * @param CatalogId
 	 * @param EntityId
 	 * @param EntityKind
 	 * @param OnCompletedRequest Delegate for handling the server response
@@ -110,6 +122,17 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Catalog")
 	static void ListCatalogs(const FLootLockerAdminListCatalogsResponseBP& OnCompletedRequest);
+
+	/**
+	 *
+	 *
+	 * @param CatalogId
+	 * @param Count
+	 * @param After
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Catalog")
+	static void ListCatalogItems(const FString& CatalogId, const int Count, const FString& After, const FLootLockerAdminListCatalogItemsResponseBP& OnCompletedRequest);
 
 	/**
 	 *
