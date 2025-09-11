@@ -257,7 +257,7 @@ struct FLootLockerAdminGetAssetsResponse : public FLootLockerAdminResponse
 	 *
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	int Asset_count;
+	int Asset_count = 0;
 };
 
 //==================================================
