@@ -61,7 +61,11 @@ public:
 
 	// Metadata
 	static FLootLockerAdminEndPoint MetadataOperations;
-	
+
+	// Players
+	static FLootLockerAdminEndPoint GrantAssetToPlayer;
+	static FLootLockerAdminEndPoint ListPlayers;
+
 	// Reward
 	static FLootLockerAdminEndPoint CreateGroup;
 

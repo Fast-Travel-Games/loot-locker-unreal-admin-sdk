@@ -6,6 +6,7 @@
 #include "AdminAPI/LootLockerAdminCatalogRequest.h"
 #include "AdminAPI/LootLockerAdminCurrencyRequest.h"
 #include "AdminAPI/LootLockerAdminMetadataRequest.h"
+#include "AdminAPI/LootLockerAdminPlayerRequest.h"
 #include "AdminAPI/LootLockerAdminRewardRequest.h"
 #include "AdminAPI/LootLockerAdminSessionRequest.h"
 
@@ -187,7 +188,30 @@ public:
 		Entry.SetValueAsJsonObject(*JsonObject);
 		return Entry;
 	}
-	
+
+	//==================================================
+	// Players
+	//==================================================
+
+	/**
+	 * Grant an asset to a player
+	 *
+	 *
+	 * @param PlayerId
+	 * @param AssetId
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void GrantAsset(const FString& PlayerId, const int AssetId, const FLootLockerAdminGrantAssetResponseDelegate& OnCompletedRequest);
+
+	/**
+	 * List players for the game
+	 *
+	 * @param Count
+	 * @param Page
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseDelegate& OnCompletedRequest);
+
 	//==================================================
 	// Reward
 	//==================================================

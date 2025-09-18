@@ -82,6 +82,18 @@ void ULootLockerAdmin::MetadataOperations(const ELootLockerAdminMetadataSources 
 	ULootLockerAdminMetadataRequest::MetadataOperations(Source, SourceId, Actions, FLootLockerAdminMetadataOperationsResponseBP(), OnCompletedRequest);
 }
 
+// PLAYERS
+
+void ULootLockerAdmin::GrantAsset(const FString& PlayerId, const int AssetId, const FLootLockerAdminGrantAssetResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerAdminPlayerRequest::GrantAsset(PlayerId, AssetId, FLootLockerAdminGrantAssetResponseBP(), OnCompletedRequest);
+}
+
+void ULootLockerAdmin::ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerAdminPlayerRequest::ListPlayers(Count, Page, FLootLockerAdminListPlayersResponseBP(), OnCompletedRequest);
+}
+
 // REWARD
 
 void ULootLockerAdmin::CreateGroup(const TArray<FLootLockerAdminEntity>& Entities, const FString& Name, const FString& Description, const FLootLockerAdminCreateGroupResponseDelegate& OnCompletedRequest)

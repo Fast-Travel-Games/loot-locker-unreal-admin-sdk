@@ -6,6 +6,7 @@
 #include "AdminAPI/LootLockerAdminCatalogRequest.h"
 #include "AdminAPI/LootLockerAdminCurrencyRequest.h"
 #include "AdminAPI/LootLockerAdminMetadataRequest.h"
+#include "AdminAPI/LootLockerAdminPlayerRequest.h"
 #include "AdminAPI/LootLockerAdminRewardRequest.h"
 #include "AdminAPI/LootLockerAdminSessionRequest.h"
 
@@ -265,6 +266,31 @@ public:
     UFUNCTION(BlueprintPure, Category = "LootLockerAdmin Methods | Metadata", meta = (AdvancedDisplay = "Tags,Access", AutoCreateRefTerm = "Tags,Access"))
     static FLootLockerAdminMetadataOperationsAction MakeMetadataActionBase64(ELootLockerAdminMetadataActions Action, const FString& Key, const FLootLockerAdminMetadataBase64Value& Value, const TArray<FString>& Tags, const TArray<FString>& Access);
 
+
+	//==================================================
+	// Players
+	//==================================================
+
+	/**
+	 * Grant an asset to a player
+	 *
+	 *
+	 * @param PlayerId
+	 * @param AssetId
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Players")
+	static void GrantAsset(const FString& PlayerId, const int AssetId, const FLootLockerAdminGrantAssetResponseBP& OnCompletedRequest);
+
+	/**
+	 * List players for the game
+	 *
+	 * @param Count How many players to return
+	 * @param Page From which page (start at 1)
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Players")
+	static void ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseBP& OnCompletedRequest);
 
 	
 	//==================================================

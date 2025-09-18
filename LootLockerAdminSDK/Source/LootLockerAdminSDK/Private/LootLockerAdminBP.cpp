@@ -128,6 +128,18 @@ FLootLockerAdminMetadataOperationsAction ULootLockerAdminBP::MakeMetadataActionB
     return FLootLockerAdminMetadataOperationsAction{Action, FLootLockerAdminMetadataEntry::MakeBase64Entry(Key, Tags, Access, Value)};
 }
 
+// PLAYERS
+
+void ULootLockerAdminBP::GrantAsset(const FString& PlayerId, const int AssetId, const FLootLockerAdminGrantAssetResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminPlayerRequest::GrantAsset(PlayerId, AssetId, OnCompletedRequest);
+}
+
+void ULootLockerAdminBP::ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminPlayerRequest::ListPlayers(Count, Page, OnCompletedRequest);
+}
+
 // REWARD
 
 void ULootLockerAdminBP::CreateGroup(const TArray<FLootLockerAdminEntity>& Entities, const FString& Name, const FString& Description, const FLootLockerAdminCreateGroupResponseBP& OnCompletedRequest)
