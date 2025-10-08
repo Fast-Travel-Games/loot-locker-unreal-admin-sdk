@@ -48,6 +48,11 @@ void ULootLockerAdmin::CreateCatalogListing(const FString& CatalogId, const FStr
 	ULootLockerAdminCatalogRequest::CreateCatalogListing(CatalogId, EntityId, EntityKind, FLootLockerAdminCreateCatalogListingResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerAdmin::DeleteCatalogListing(const FString& CatalogItemId, const FLootLockerAdminDeleteCatalogListingResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerAdminCatalogRequest::DeleteCatalogListing(CatalogItemId, FLootLockerAdminDeleteCatalogListingResponseBP(), OnCompletedRequest);
+}
+
 void ULootLockerAdmin::ListCatalogs(const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest)
 {
 	ULootLockerAdminCatalogRequest::ListCatalogs(FLootLockerAdminListCatalogsResponseBP(), OnCompletedRequest);

@@ -51,6 +51,7 @@ public:
 	static FLootLockerAdminEndPoint AddPrice;
 	static FLootLockerAdminEndPoint DeletePrice;
 	static FLootLockerAdminEndPoint CreateCatalogListing;
+	static FLootLockerAdminEndPoint DeleteCatalogListing;
 	static FLootLockerAdminEndPoint ListCatalogs;
 	static FLootLockerAdminEndPoint ListCatalogItems;
 	static FLootLockerAdminEndPoint TogglePurchasableStatus;

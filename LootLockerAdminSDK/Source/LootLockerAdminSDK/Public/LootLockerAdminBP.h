@@ -119,6 +119,16 @@ public:
 	/**
 	 *
 	 *
+	 *
+	 * @param CatalogItemId
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Catalog")
+	static void DeleteCatalogListing(const FString& CatalogItemId, const FLootLockerAdminDeleteCatalogListingResponseBP& OnCompletedRequest);
+
+	/**
+	 *
+	 *
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Catalog")

@@ -20,7 +20,7 @@ void ULootLockerAdminCatalogRequest::AddPrice(const FString& CatalogItemId, cons
 void ULootLockerAdminCatalogRequest::DeletePrice(const FString& CatalogId, const FString& CatalogItemId, const FString& CurrencyId, const FLootLockerAdminDeletePriceResponseBP& OnCompletedRequestBP, const FLootLockerAdminDeletePriceResponseDelegate& OnCompletedRequest)
 {
 	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
-	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListCatalogsResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::DeletePrice, {Config->GameID, CatalogId, CatalogItemId, CurrencyId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::DeletePrice, {Config->GameID, CatalogId, CatalogItemId, CurrencyId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerAdminCatalogRequest::CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequestBP, const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest)
@@ -31,6 +31,12 @@ void ULootLockerAdminCatalogRequest::CreateCatalogListing(const FString& Catalog
 	Request.Entity_id = EntityId;
 	Request.Entity_kind = UEnum::GetValueAsString(EntityKind).ToLower().RightChop(UEnum::GetValueAsString(EntityKind).Find("::") + 2);
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminCreateCatalogListingResponse>(Request, ULootLockerAdminEndpoints::CreateCatalogListing, {Config->GameID}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
+void ULootLockerAdminCatalogRequest::DeleteCatalogListing(const FString& CatalogItemId, const FLootLockerAdminDeleteCatalogListingResponseBP& OnCompletedRequestBP, const FLootLockerAdminDeleteCatalogListingResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::DeleteCatalogListing, {Config->GameID, CatalogItemId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
 void ULootLockerAdminCatalogRequest::ListCatalogs(const FLootLockerAdminListCatalogsResponseBP& OnCompletedRequestBP, const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest)

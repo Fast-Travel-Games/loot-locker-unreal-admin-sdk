@@ -314,6 +314,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminDeletePriceResponseBP, FLootLo
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateCatalogListingResponseBP, FLootLockerAdminCreateCatalogListingResponse, Response);
 /*
+ Blueprint response delegate for deleting a catalog listing
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminDeleteCatalogListingResponseBP, FLootLockerAdminResponse, Response);
+/*
  Blueprint response delegate for listing available catalogs
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminListCatalogsResponseBP, FLootLockerAdminListCatalogsResponse, Response);
@@ -343,6 +347,10 @@ DECLARE_DELEGATE_OneParam(FLootLockerAdminDeletePriceResponseDelegate, FLootLock
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateCatalogListingResponseDelegate, FLootLockerAdminCreateCatalogListingResponse);
 /*
+ C++ response delegate for deleting a catalog listing
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerAdminDeleteCatalogListingResponseDelegate, FLootLockerAdminResponse);
+/*
  C++ response delegate for listing available catalogs
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminListCatalogsResponseDelegate, FLootLockerAdminListCatalogsResponse);
@@ -368,6 +376,7 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdminCatalogRequest : public UObject
 	static void AddPrice(const FString& CatalogItemId, const FString& CurrencyId, int Amount, const FLootLockerAdminAddPriceResponseBP& OnCompletedRequestBP = FLootLockerAdminAddPriceResponseBP(), const FLootLockerAdminAddPriceResponseDelegate& OnCompletedRequest = FLootLockerAdminAddPriceResponseDelegate());
 	static void DeletePrice(const FString& CatalogId, const FString& CatalogItemId, const FString& CurrencyId, const FLootLockerAdminDeletePriceResponseBP& OnCompletedRequestBP = FLootLockerAdminDeletePriceResponseBP(), const FLootLockerAdminDeletePriceResponseDelegate& OnCompletedRequest = FLootLockerAdminDeletePriceResponseDelegate());
     static void CreateCatalogListing(const FString& CatalogId, const FString& EntityId, const ELootLockerAdminCatalogEntityKind& EntityKind, const FLootLockerAdminCreateCatalogListingResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateCatalogListingResponseBP(), const FLootLockerAdminCreateCatalogListingResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateCatalogListingResponseDelegate());
+    static void DeleteCatalogListing(const FString& CatalogItemId, const FLootLockerAdminDeleteCatalogListingResponseBP& OnCompletedRequestBP = FLootLockerAdminDeleteCatalogListingResponseBP(), const FLootLockerAdminDeleteCatalogListingResponseDelegate& OnCompletedRequest = FLootLockerAdminDeleteCatalogListingResponseDelegate());
 	static void ListCatalogs(const FLootLockerAdminListCatalogsResponseBP& OnCompletedRequestBP = FLootLockerAdminListCatalogsResponseBP(), const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest = FLootLockerAdminListCatalogsResponseDelegate());
 	static void ListCatalogItems(const FString& CatalogId, const int Count, const FString& After, const FLootLockerAdminListCatalogItemsResponseBP& OnCompletedRequestBP = FLootLockerAdminListCatalogItemsResponseBP(), const FLootLockerAdminListCatalogItemsResponseDelegate& OnCompletedRequest = FLootLockerAdminListCatalogItemsResponseDelegate());
 	static void TogglePurchasableStatus(const FString& CatalogItemId, const FLootLockerAdminTogglePurchasableStatusResponseBP& OnCompletedRequestBP = FLootLockerAdminTogglePurchasableStatusResponseBP(), const FLootLockerAdminTogglePurchasableStatusResponseDelegate& OnCompletedRequest = FLootLockerAdminTogglePurchasableStatusResponseDelegate());

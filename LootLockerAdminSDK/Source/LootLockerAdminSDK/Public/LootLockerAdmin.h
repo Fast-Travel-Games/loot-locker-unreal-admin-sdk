@@ -107,6 +107,15 @@ public:
 	/**
 	 * 
 	 * 
+	 *
+	 * @param CatalogItemId
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void DeleteCatalogListing(const FString& CatalogItemId, const FLootLockerAdminDeleteCatalogListingResponseDelegate& OnCompletedRequest);
+
+	/**
+	 * 
+	 * 
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	static void ListCatalogs(const FLootLockerAdminListCatalogsResponseDelegate& OnCompletedRequest);
