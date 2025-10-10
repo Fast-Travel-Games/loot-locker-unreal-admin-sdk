@@ -12,8 +12,8 @@
 // Enum Definitions
 //==================================================
 
-/*
- Possible metadata sources
+/**
+ * Possible metadata sources
  */
 UENUM(BlueprintType, Category = "LootLockerAdmin")
 enum class ELootLockerAdminMetadataSources : uint8
@@ -27,8 +27,8 @@ enum class ELootLockerAdminMetadataSources : uint8
 	asset = 6,
 };
 
-/*
- Possible metadata types
+/**
+ * Possible metadata types
  */
 UENUM(BlueprintType, Category = "LootLockerAdmin")
 enum class ELootLockerAdminMetadataTypes : uint8
@@ -40,8 +40,8 @@ enum class ELootLockerAdminMetadataTypes : uint8
 	Base64 = 4,
 };
 
-/*
- Possible metadata actions
+/**
+ * Possible metadata actions
  */
 UENUM(BlueprintType, Category = "LootLockerAdmin")
 enum class ELootLockerAdminMetadataActions : uint8
@@ -55,20 +55,20 @@ enum class ELootLockerAdminMetadataActions : uint8
 // Data Type Definitions
 //==================================================
 
-/*
+/**
  *
  */
 USTRUCT(BlueprintType, Category = "LootLockerAdmin")
 struct FLootLockerAdminMetadataBase64Value
 {
 	GENERATED_BODY()
-	/*
-	 The type of content that the base64 string encodes. Could be for example "image/jpeg" if it is a base64 encoded jpeg, or "application/x-redacted" if loading of files has been disabled
+	/**
+	 * The type of content that the base64 string encodes. Could be for example "image/jpeg" if it is a base64 encoded jpeg, or "application/x-redacted" if loading of files has been disabled
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Content_type;
-	/*
-	 The encoded content in the form of a Base64 String. If this is unexpectedly empty, check if Content_type is set to "application/x-redacted". If it is, then the request for metadata was made with the ignoreFiles parameter set to true
+	/**
+	 * The encoded content in the form of a Base64 String. If this is unexpectedly empty, check if Content_type is set to "application/x-redacted". If it is, then the request for metadata was made with the ignoreFiles parameter set to true
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Content;
@@ -81,13 +81,13 @@ USTRUCT(BlueprintType, Category = "LootLockerAdmin")
 struct FLootLockerAdminMetadataOperationsErrorEntry
 {
 	GENERATED_BODY()
-	/*
-	 The metadata key that the set operation error refers to
+	/**
+	 * The metadata key that the set operation error refers to
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Key;
-	/*
-	 The type of value that the set operation was for
+	/**
+	 * The type of value that the set operation was for
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	ELootLockerAdminMetadataTypes Type = ELootLockerAdminMetadataTypes::String;
@@ -101,101 +101,101 @@ USTRUCT(BlueprintType, Category = "LootLockerAdmin")
 struct FLootLockerAdminMetadataEntry
 {
     GENERATED_BODY()
-    /*
-     The metadata key
+    /**
+     * The metadata key
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
     FString Key;
-    /*
-     The type of value this metadata contains. Use this to parse the value.
+    /**
+     * The type of value this metadata contains. Use this to parse the value.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
     ELootLockerAdminMetadataTypes Type = ELootLockerAdminMetadataTypes::String;
-    /*
-     List of tags applied to this metadata
+    /**
+     * List of tags applied to this metadata
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
     TArray<FString> Tags;
-    /*
-     The access level set for this metadata entry. Valid values are game_api.read and game_api.write, though no values are required.
-     Note that different sources can allow or disallow a subset of these values.
+    /**
+     * The access level set for this metadata entry. Valid values are game_api.read and game_api.write, though no values are required.
+     * Note that different sources can allow or disallow a subset of these values.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
     TArray<FString> Access;
 
-	/*
-	 Get the value as an unparsed json value. Returns true if value could be found in which case Output contains the JsonValue, returns false if the value field was not present.
+	/**
+	 * Get the value as an unparsed json value. Returns true if value could be found in which case Output contains the JsonValue, returns false if the value field was not present.
 	 */
 	LOOTLOCKERADMINSDK_API bool TryGetRawValue(TSharedPtr<FJsonValue>& Output) const;
 	
-    /*
-     Set the value as a String.
+    /**
+     * Set the value as a String.
      */
     LOOTLOCKERADMINSDK_API void SetValueAsString(const FString& Value);
-    /*
-     Set the value as a float.
+    /**
+     * Set the value as a float.
      */
     LOOTLOCKERADMINSDK_API void SetValueAsFloat(const float& Value);
-    /*
-     Set the value as an integer.
+    /**
+     * Set the value as an integer.
      */
     LOOTLOCKERADMINSDK_API void SetValueAsInteger(const int& Value);
-    /*
-     Set the value as a bool.
+    /**
+     * Set the value as a bool.
      */
     LOOTLOCKERADMINSDK_API void SetValueAsBool(const bool& Value);
-    /*
-     Set the value as a JsonValue.
+    /**
+     * Set the value as a JsonValue.
      */
     LOOTLOCKERADMINSDK_API void SetRawValue(const TSharedPtr<FJsonValue>& Value);
-	/*
-     Set the value as a Json Object.
+	/**
+     * Set the value as a Json Object.
      */
     LOOTLOCKERADMINSDK_API void SetValueAsJsonObject(const FJsonObject& Value);
-    /*
-     Set the value as a Json Array.
+    /**
+     * Set the value as a Json Array.
      */
     LOOTLOCKERADMINSDK_API void SetValueAsJsonArray(const TArray<TSharedPtr<FJsonValue>>& Value);
-    /*
-     Set the value as a Base64 object.
+    /**
+     * Set the value as a Base64 object.
      */
     LOOTLOCKERADMINSDK_API void SetValueAsBase64(const FLootLockerAdminMetadataBase64Value& Value);
 
-    /*
-     Factory method that makes an FLootLockerAdminMetadataEntry with a String Value
+    /** 
+     * Factory method that makes an FLootLockerAdminMetadataEntry with a String Value
      */
 	static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeStringEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FString& Value);
-    /*
-     Factory method that makes an FLootLockerAdminMetadataEntry with a Float Value
+    /**
+     * Factory method that makes an FLootLockerAdminMetadataEntry with a Float Value
      */
     static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeFloatEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const float& Value);
-    /*
-     Factory method that makes an FLootLockerAdminMetadataEntry with an Integer Value
+    /**
+     * Factory method that makes an FLootLockerAdminMetadataEntry with an Integer Value
      */
     static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeIntegerEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const int Value);
-    /*
-     Factory method that makes an FLootLockerAdminMetadataEntry with a Bool Value
+    /**
+     * Factory method that makes an FLootLockerAdminMetadataEntry with a Bool Value
      */
     static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeBoolEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const bool Value);
-    /*
-     Factory method that makes an FLootLockerAdminMetadataEntry with a JsonValue Value
+    /**
+     * Factory method that makes an FLootLockerAdminMetadataEntry with a JsonValue Value
      */
     static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeJsonValueEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerAdminMetadataTypes Type, const TSharedPtr<FJsonValue> Value);
-    /*
-     Factory method that makes an FLootLockerAdminMetadataEntry with a JsonObject Value
+    /**
+     * Factory method that makes an FLootLockerAdminMetadataEntry with a JsonObject Value
      */
     static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeJsonObjectEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FJsonObject& Value);
-    /*
-     Factory method that makes an FLootLockerAdminMetadataEntry with a JsonArray Value
+    /**
+     * Factory method that makes an FLootLockerAdminMetadataEntry with a JsonArray Value
      */
     static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeJsonArrayEntry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const TArray<TSharedPtr<FJsonValue>>& Value);
-    /*
-     Factory method that makes an FLootLockerAdminMetadataEntry with a Base64 Value
+    /**
+     * Factory method that makes an FLootLockerAdminMetadataEntry with a Base64 Value
      */
     static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry MakeBase64Entry(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const FLootLockerAdminMetadataBase64Value& Value);
 
-    /*
-     For internal use only
+    /**
+     * For internal use only
      */
     void LOOTLOCKERADMINSDK_API _INTERNAL_SetJsonRepresentation(const FJsonObject& obj);
     static LOOTLOCKERADMINSDK_API FLootLockerAdminMetadataEntry _INTERNAL_MakeEntryExceptValue(const FString& Key, const TArray<FString>& Tags, const TArray<FString>& Access, const ELootLockerAdminMetadataTypes Type);
@@ -212,18 +212,18 @@ USTRUCT(BlueprintType, Category = "LootLockerAdmin")
 struct FLootLockerAdminMetadataOperationsError
 {
 	GENERATED_BODY()
-	/*
-	 The type of action that this set metadata operation was
+	/**
+	 * The type of action that this set metadata operation was
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	ELootLockerAdminMetadataActions Action = ELootLockerAdminMetadataActions::Create;
-	/*
-	 The type of value that the set operation was for
+	/**
+	 * The type of value that the set operation was for
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FLootLockerAdminMetadataOperationsErrorEntry Entry;
-	/*
-	 The error message describing why this metadata set operation failed
+	/**
+	 * The error message describing why this metadata set operation failed
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Error;
@@ -233,20 +233,20 @@ struct FLootLockerAdminMetadataOperationsError
 // Request Definitions
 //==================================================
 
-/*
+/**
  *
  */
 USTRUCT(BlueprintType, Category = "LootLockerAdmin")
 struct FLootLockerAdminMetadataOperationsAction
 {
 	GENERATED_BODY()
-	/*
-	 The type of action to take for setting this metadata entry
+	/**
+	 * The type of action to take for setting this metadata entry
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	ELootLockerAdminMetadataActions Action = ELootLockerAdminMetadataActions::Create;
-	/*
-	 The metadata entry to take the designated action for
+	/**
+	 * The metadata entry to take the designated action for
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FLootLockerAdminMetadataEntry Entry;
@@ -256,24 +256,25 @@ struct FLootLockerAdminMetadataOperationsAction
 // Response Definitions
 //==================================================
 
-/*
+/**
+ *
  */
 USTRUCT(BlueprintType, Category = "LootLockerAdmin")
 struct FLootLockerAdminMetadataOperationsResponse : public FLootLockerAdminResponse
 {
 	GENERATED_BODY()
-	/*
-	 A list of any errors that occurred when executing the provided metadata actions
+	/**
+	 * A list of any errors that occurred when executing the provided metadata actions
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	TArray<FLootLockerAdminMetadataOperationsError> Errors;
-	/*
-	 The type of source that the source id refers to
+	/**
+	 * The type of source that the source id refers to
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	ELootLockerAdminMetadataSources Source = ELootLockerAdminMetadataSources::reward;
-	/*
-	 The id of the specific source that the set operation was taken on
+	/**
+	 * The id of the specific source that the set operation was taken on
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Source_id;
@@ -283,8 +284,8 @@ struct FLootLockerAdminMetadataOperationsResponse : public FLootLockerAdminRespo
 // Blueprint Delegate Definitions
 //==================================================
 
-/*
- Blueprint response delegate for creating a currency
+/**
+ * Blueprint response delegate for metadata operations
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseBP, FLootLockerAdminMetadataOperationsResponse, Response);
 
@@ -292,8 +293,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseBP, 
 // C++ Delegate Definitions
 //==================================================
 
-/*
- C++ response delegate for creating a currency
+/**
+ * C++ response delegate for metadata operations
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseDelegate, FLootLockerAdminMetadataOperationsResponse);
 

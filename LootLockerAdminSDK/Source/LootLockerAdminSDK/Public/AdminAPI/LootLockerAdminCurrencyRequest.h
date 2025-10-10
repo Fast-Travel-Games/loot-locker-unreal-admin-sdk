@@ -56,26 +56,26 @@ struct FLootLockerAdminCurrency
 //==================================================
 
 /**
- * 
+ * Request data for CreateCurrency
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminCreateCurrencyRequest : public FLootLockerAdminEmptyRequest
 {
 	GENERATED_BODY()
 	
-	/*
- 
-	*/
+	/**
+	 * Name of the Currency
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Name = "";
-	/*
- 
-	*/
+	/**
+	 * Three character code. Must be unique for the game 
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Code = "";
-	/*
- 
-	*/
+	/**
+	 * Name of denominator
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Initial_denomination_name = "";
 };
@@ -86,47 +86,47 @@ struct FLootLockerAdminCreateCurrencyRequest : public FLootLockerAdminEmptyReque
 //==================================================
 
 /**
- * 
+ * Response for CreateCurrency call
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminCreateCurrencyResponse : public FLootLockerAdminResponse
 {
 	GENERATED_BODY()
     
-	/*
-	 
+	/**
+	 * Id of the created currency
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Id = "";
-	/*
-	 
+	/**
+	 * The game the currency belong to
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Game_id = "";
-	/*
-	 
+	/**
+	 * Name of the currency
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Name = "";
-	/*
-	 
+	/**
+	 * The currency code
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Code = "";
-	/*
-	 
+	/**
+	 * If game API are allowed to change values of this currency
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	bool Game_api_writes_enabled = false;
-	/*
-	 
+	/**
+	 * When the currency was created
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Created_at = ""; // TODO: convert to FDateTime ??
+	FString Created_at = "";
 };
 
 /**
- *
+ * Response data for ListCurrencies
  */
 USTRUCT(BlueprintType, Category = "LootLockerAdmin")
 struct FLootLockerAdminListCurrenciesResponse : public FLootLockerAdminResponse

@@ -12,46 +12,46 @@
 //==================================================
 
 /**
- * 
+ * Metadata struct
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminEntityMetadata
 {
 	GENERATED_BODY()
 
-	/*
-
-	*/
+	/**
+	 * Key for metadata
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Key = "purchased_amount";
-	/*
-
-	*/
+	/**
+	 * Value for metadata
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Value = "";
 };
 
 /**
- * 
+ * Entity data
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminEntity
 {
 	GENERATED_BODY()
 
-	/*
-
-	*/
+	/**
+	 * The Id of the entity
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Entity_id = "";
-	/*
-
-	*/
+	/**
+	 * What kind the entity is
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Entity_kind = "";
-	/*
-
-	*/
+	/**
+	 * Any metadata related to this entity
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	TArray<FLootLockerAdminEntityMetadata> Metadata;
 };
@@ -61,36 +61,36 @@ struct FLootLockerAdminEntity
 //==================================================
 
 /**
- *
+ * Request data for CreateGroup call
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminCreateGroupRequest : public FLootLockerAdminEmptyRequest
 {
 	GENERATED_BODY()
 	
-	/*
- 
-	*/
+	/**
+	 * Id of the entity we want to include in the group
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Entity_id = "";
-	/*
- 
-	*/
+	/**
+	 * What kind is the entity
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Entity_kind = "";
-	/*
- 
-	*/
+	/**
+	 * Name of the entity
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Name = "";
-	/*
- 
-	*/
+	/**
+	 * Description of the entity
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Description = "";
-	/*
-
-	*/
+	/**
+	 * Which entities to include in this group
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	TArray<FLootLockerAdminEntity> Associations;
 };
@@ -101,15 +101,15 @@ struct FLootLockerAdminCreateGroupRequest : public FLootLockerAdminEmptyRequest
 //==================================================
 
 /**
- *
+ * Response data for CreateGroup call
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminCreateGroupResponse : public FLootLockerAdminResponse
 {
 	GENERATED_BODY()
 
-	/*
-	 *
+	/**
+	 * Id of the created group
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Id = "";
@@ -119,8 +119,8 @@ struct FLootLockerAdminCreateGroupResponse : public FLootLockerAdminResponse
 // Blueprint Delegate Definitions
 //==================================================
 
-/*
- Blueprint response delegate for creating a currency
+/**
+ * Blueprint response delegate for creating a group
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseBP, FLootLockerAdminCreateGroupResponse, Response);
 
@@ -128,8 +128,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseBP, FLootLo
 // C++ Delegate Definitions
 //==================================================
 
-/*
- C++ response delegate for creating a currency
+/**
+ * C++ response delegate for creating a group
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseDelegate, FLootLockerAdminCreateGroupResponse);
 

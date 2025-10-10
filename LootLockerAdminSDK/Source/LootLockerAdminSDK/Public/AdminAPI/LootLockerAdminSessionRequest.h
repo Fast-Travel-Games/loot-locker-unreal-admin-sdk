@@ -12,35 +12,35 @@
 //==================================================
 
 /**
- * 
+ * User data
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminSessionUser
 {
 	GENERATED_BODY()
-	/*
-	 
+	/**
+	 * Id of the user
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	int Id = 0;
-	/*
-	 
+	/**
+	 * Name of the user
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Name = "";
-	/*
- 
-	*/
+	/**
+	 * Email of the user
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Email = "";
-	/*
- 
-	*/
+	/**
+	 * When the user signed up
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	int Signed_up = 0;
-	/*
- 
-	*/
+	/**
+	 * If user have been verified
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	bool Is_verified = false;
 };
@@ -58,14 +58,14 @@ struct FLootLockerAdminCreateSessionRequest : public FLootLockerAdminEmptyReques
 {
 	GENERATED_BODY()
 	
-	/*
- 
-	*/
+	/**
+	 * Email of a registered user
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Email = "";
-	/*
- 
-	*/
+	/**
+	 * Password for that user
+	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Password = "";
 };
@@ -76,20 +76,20 @@ struct FLootLockerAdminCreateSessionRequest : public FLootLockerAdminEmptyReques
 //==================================================
 
 /**
- * 
+ * Create session response
  */
 USTRUCT(BlueprintType)
 struct FLootLockerAdminCreateSessionResponse : public FLootLockerAdminResponse
 {
 	GENERATED_BODY()
     
-	/*
-	 
+	/**
+	 * Auth token returned will be set internally and used in any subsequent functions for authing requests
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FString Auth_token = "";
-	/*
-	 
+	/**
+	 * User data
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	FLootLockerAdminSessionUser User;
@@ -99,8 +99,8 @@ struct FLootLockerAdminCreateSessionResponse : public FLootLockerAdminResponse
 // Blueprint Delegate Definitions
 //==================================================
 
-/*
- Blueprint response delegate for getting assets
+/**
+ * Blueprint response delegate for creating session
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateSessionResponseBP, FLootLockerAdminCreateSessionResponse, Response);
 
@@ -108,8 +108,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateSessionResponseBP, FLoot
 // C++ Delegate Definitions
 //==================================================
 
-/*
- C++ response delegate for getting assets
+/**
+ * C++ response delegate for creating session
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateSessionResponseDelegate, FLootLockerAdminCreateSessionResponse);
 
