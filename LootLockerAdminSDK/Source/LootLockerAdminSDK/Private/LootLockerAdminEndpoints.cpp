@@ -1,11 +1,7 @@
 
 #include "LootLockerAdminEndpoints.h"
 
-#ifdef LOOTLOCKER_USE_STAGE_URL
-FString ULootLockerAdminEndpoints::AdminApiUrl = "https://api.stage.internal.dev.lootlocker.cloud/admin/";
-#else
 FString ULootLockerAdminEndpoints::AdminApiUrl = "https://api.lootlocker.com/admin/";
-#endif
 
 // Assets
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateAsset = InitEndpoint("v1/game/{0}/asset", ELootLockerAdminHTTPMethod::POST);

@@ -24,7 +24,7 @@ ULootLockerAdminHttpClient& ULootLockerAdminHttpClient::GetInstance()
 }
 
 ULootLockerAdminHttpClient::ULootLockerAdminHttpClient()
-	: UserAgent(FString::Format(TEXT("X-UnrealEngineServer-Agent/{0}"), { ENGINE_VERSION_STRING }))
+	: UserAgent(FString::Format(TEXT("X-UnrealEngineAdmin-Agent/{0}"), { ENGINE_VERSION_STRING }))
 	, UserInstanceIdentifier(FGuid::NewGuid().ToString())
 {
 	if (SDKVersion.IsEmpty())
@@ -76,7 +76,7 @@ void ULootLockerAdminHttpClient::SendRequest_Internal(HTTPRequest InRequest) con
 		{
 			FLootLockerAdminResponse Error = LootLockerAdminResponseFactory::Error<FLootLockerAdminResponse>("HTTP Response was invalid", LootLockerAdminStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP);
 			LogFailedRequestInformation(Error, InRequest.RequestType, InRequest.EndPoint, InRequest.Data, TArray<FString>());
-			InRequest.OnCompleteRequest.ExecuteIfBound(Error);
+			(void) InRequest.OnCompleteRequest.ExecuteIfBound(Error);
 			return;
 		}
 		FLootLockerAdminResponse response;
@@ -103,7 +103,7 @@ void ULootLockerAdminHttpClient::SendRequest_Internal(HTTPRequest InRequest) con
 		{
 			LogSuccessfulRequestInformation(response, InRequest.RequestType, InRequest.EndPoint, InRequest.Data, Response->GetAllHeaders());
 		}
-		InRequest.OnCompleteRequest.ExecuteIfBound(response);
+		(void) InRequest.OnCompleteRequest.ExecuteIfBound(response);
 	});
 	Request->ProcessRequest();
 }
@@ -189,7 +189,7 @@ void ULootLockerAdminHttpClient::UploadRawFile_Internal(const TArray<uint8>& Raw
 		{
 			FLootLockerAdminResponse Error = LootLockerAdminResponseFactory::Error<FLootLockerAdminResponse>("HTTP Response was invalid", LootLockerAdminStaticRequestErrorStatusCodes::LL_ERROR_INVALID_HTTP);
 			LogFailedRequestInformation(Error, InRequest.RequestType, InRequest.EndPoint, FString("Data Stream"), TArray<FString>());
-			InRequest.OnCompleteRequest.ExecuteIfBound(Error);
+			(void) InRequest.OnCompleteRequest.ExecuteIfBound(Error);
 			return;
 		}
 		FLootLockerAdminResponse response;
@@ -217,7 +217,7 @@ void ULootLockerAdminHttpClient::UploadRawFile_Internal(const TArray<uint8>& Raw
 			LogSuccessfulRequestInformation(response, InRequest.RequestType, InRequest.EndPoint, FString("Data Stream"), Response->GetAllHeaders());
 		}
 
-		InRequest.OnCompleteRequest.ExecuteIfBound(response);
+		(void) InRequest.OnCompleteRequest.ExecuteIfBound(response);
 	});
 	Request->ProcessRequest();
 }

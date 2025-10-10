@@ -170,8 +170,8 @@ void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminM
 	{
 		FLootLockerAdminMetadataOperationsResponse Error = LootLockerAdminResponseFactory::Error<
 			FLootLockerAdminMetadataOperationsResponse>("Can not perform actions for source with empty id", LootLockerAdminStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT);
-		OnCompletedRequestBP.ExecuteIfBound(Error);
-		OnCompletedRequest.ExecuteIfBound(Error);
+		(void) OnCompletedRequestBP.ExecuteIfBound(Error);
+		(void) OnCompletedRequest.ExecuteIfBound(Error);
 		return;
 	}
 
@@ -192,8 +192,8 @@ void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminM
 		{
 			FLootLockerAdminMetadataOperationsResponse Error = LootLockerAdminResponseFactory::Error<
 				FLootLockerAdminMetadataOperationsResponse>("Could not serialize action for key " + ActionToPerform.Entry.Key, LootLockerAdminStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR);
-			OnCompletedRequestBP.ExecuteIfBound(Error);
-			OnCompletedRequest.ExecuteIfBound(Error);
+			(void) OnCompletedRequestBP.ExecuteIfBound(Error);
+			(void) OnCompletedRequest.ExecuteIfBound(Error);
 			return;
 		}
 
@@ -205,8 +205,8 @@ void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminM
 		{
 			FLootLockerAdminMetadataOperationsResponse Error = LootLockerAdminResponseFactory::Error<
 				FLootLockerAdminMetadataOperationsResponse>("Could not get value to perform action " + JsonEntry->GetStringField(TEXT("action")) + " for key " + ActionToPerform.Entry.Key, LootLockerAdminStaticRequestErrorStatusCodes::LL_ERROR_PARSE_ERROR);
-			OnCompletedRequestBP.ExecuteIfBound(Error);
-			OnCompletedRequest.ExecuteIfBound(Error);
+			(void) OnCompletedRequestBP.ExecuteIfBound(Error);
+			(void) OnCompletedRequest.ExecuteIfBound(Error);
 			return;
 		}
 		JsonEntry->SetField(TEXT("value"), RawEntryValue);
