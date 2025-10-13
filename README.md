@@ -2,7 +2,7 @@
 
 ## About
 
-This is an unofficial Admin SDK Unreal Plugin for LootLocker. We at Fast Travel Games use this to automate some of the config of our LootLocker backend.
+This is an unofficial Admin SDK Unreal Plugin for LootLocker. We at Fast Travel Games use this to automate some of the config for our LootLocker backend.
 
 LootLocker is a game backend-as-a-service that unlocks cross-platform systems so you can build, ship, and run your best games.
 
@@ -10,7 +10,7 @@ Full documentation is available [here](https://docs.lootlocker.com/)
 
 ## Installation
 
-For a more detailed guide on installation, please see our [User Documentation](https://docs.lootlocker.com/getting-started/unreal-tutorials/getting-started-with-unreal)
+For a more detailed guide on installation, please see LootLockers [User Documentation](https://docs.lootlocker.com/getting-started/unreal-tutorials/getting-started-with-unreal). This Admin SDK is very similar to the Game and Server SDK.
 
 1. Clone this repo
 2. Copy the LootLockerAdminSDK folder.
@@ -33,8 +33,12 @@ For a more detailed guide on installation, please see our [User Documentation](h
 
 ## Configuration
 
-1. Navigate to Edit/Project Settings in the editor, Scroll down on the left panel until the plugins sections of the project settings, Click on LootLockerSDK
-2. Modify the LootLockerGameKey, Platform, Game Version, Development mode and AllowTokenRefresh (Set to true if you want the LootLockerSDK to attempt to refresh the token if it expires). What values to set, you can find in the LootLocker dashboard. You should already have an account from [https://console.lootlocker.com/login](https://console.lootlocker.com/login "https://console.lootlocker.com/login")
+1. Navigate to Edit/Project Settings in the editor, Scroll down on the left panel until the plugins sections of the project settings, Click on LootLockerAdminSDK
+2. Modify the Game ID value. This is the number you find in the path for the game in the LootLocker console. You should also already have an account from [https://console.lootlocker.com/login](https://console.lootlocker.com/login "https://console.lootlocker.com/login") so check there.
+
+## Usage
+
+Typically you will need to call `StartSession` before any other function will work.
 
 ## Support
 
