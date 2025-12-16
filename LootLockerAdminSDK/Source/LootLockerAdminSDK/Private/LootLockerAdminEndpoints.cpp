@@ -19,7 +19,7 @@ FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListCatalogItems = InitEndpo
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::TogglePurchasableStatus = InitEndpoint("game/{0}/catalog/item/{1}", ELootLockerAdminHTTPMethod::PUT);
 
 // Currency
-FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateCurrency = InitEndpoint("game/{0}/currency", ELootLockerAdminHTTPMethod::POST);
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateCurrency = InitEndpoint("game/{0}/currencies/currency", ELootLockerAdminHTTPMethod::POST);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListCurrencies = InitEndpoint("game/{0}/currencies", ELootLockerAdminHTTPMethod::GET);
 
 // Metadata
