@@ -22,7 +22,11 @@ FLootLockerAdminEndPoint ULootLockerAdminEndpoints::TogglePurchasableStatus = In
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateCurrency = InitEndpoint("game/{0}/currencies/currency", ELootLockerAdminHTTPMethod::POST);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListCurrencies = InitEndpoint("game/{0}/currencies", ELootLockerAdminHTTPMethod::GET);
 
+// Leaderboards
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateLeaderboard = InitEndpoint("game/{0}/leaderboards", ELootLockerAdminHTTPMethod::POST);
+
 // Metadata
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListMetadata = InitEndpoint("game/{0}/metadata/source/{1}/id/{2}", ELootLockerAdminHTTPMethod::GET);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::MetadataOperations = InitEndpoint("game/{0}/metadata", ELootLockerAdminHTTPMethod::POST);
 
 // Players

@@ -80,7 +80,27 @@ void ULootLockerAdmin::ListCurrencies(const FLootLockerAdminListCurrenciesRespon
 	ULootLockerAdminCurrencyRequest::ListCurrencies(FLootLockerAdminListCurrenciesResponseBP(), OnCompletedRequest);
 }
 
+// LEADERBOARD
+
+void ULootLockerAdmin::CreateLeaderboard(FString LeaderboardKey, FString Name, ELootLockerAdminLeaderboardType Type, bool HasMetadata, ELootLockerAdminLeaderboardDirection DirectionMethod, bool EnableGameApiWrites, bool OverwriteScoreOnSubmit, const FLootLockerAdminCreateLeaderboardResponseDelegate& OnCompletedRequest)
+{
+	FLootLockerAdminCreateLeaderboardRequest Request;
+	Request.Key = LeaderboardKey;
+	Request.Name = Name;
+	Request.Type = Type;
+	Request.Has_metadata = HasMetadata;
+	Request.Direction_method = DirectionMethod;
+	Request.Enable_game_api_writes = EnableGameApiWrites;
+	Request.Overwrite_score_on_submit = OverwriteScoreOnSubmit;
+	ULootLockerAdminLeaderboardRequest::CreateLeaderboard(Request, FLootLockerAdminCreateLeaderboardResponseBP(), OnCompletedRequest);
+}
+
 // METADATA
+
+void ULootLockerAdmin::ListMetadata(const ELootLockerAdminMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FLootLockerAdminListMetadataResponseDelegate& OnCompletedRequest, const bool IgnoreFiles)
+{
+	ULootLockerAdminMetadataRequest::ListMetadata(Source, SourceID, Page, PerPage, "", TArray<FString>(), true, FLootLockerAdminListMetadataResponseBP(), OnCompletedRequest);
+}
 
 void ULootLockerAdmin::MetadataOperations(const ELootLockerAdminMetadataSources Source, const FString& SourceId, const TArray<FLootLockerAdminMetadataOperationsAction>& Actions, const FLootLockerAdminMetadataOperationsResponseDelegate& OnCompletedRequest)
 {

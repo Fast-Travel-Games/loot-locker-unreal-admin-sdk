@@ -66,12 +66,12 @@ struct FLootLockerAdminMetadataBase64Value
 	 * The type of content that the base64 string encodes. Could be for example "image/jpeg" if it is a base64 encoded jpeg, or "application/x-redacted" if loading of files has been disabled
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Content_type;
+	FString Content_type = "";
 	/**
 	 * The encoded content in the form of a Base64 String. If this is unexpectedly empty, check if Content_type is set to "application/x-redacted". If it is, then the request for metadata was made with the ignoreFiles parameter set to true
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Content;
+	FString Content = "";
 };
 
 /**
@@ -85,14 +85,13 @@ struct FLootLockerAdminMetadataOperationsErrorEntry
 	 * The metadata key that the set operation error refers to
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Key;
+	FString Key = "";
 	/**
 	 * The type of value that the set operation was for
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	ELootLockerAdminMetadataTypes Type = ELootLockerAdminMetadataTypes::String;
 };
-
 
 /**
  *
@@ -105,7 +104,7 @@ struct FLootLockerAdminMetadataEntry
      * The metadata key
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-    FString Key;
+    FString Key = "";
     /**
      * The type of value this metadata contains. Use this to parse the value.
      */
@@ -204,7 +203,6 @@ private:
     FJsonObject EntryAsJson;
 };
 
-
 /**
  *
  */
@@ -226,7 +224,69 @@ struct FLootLockerAdminMetadataOperationsError
 	 * The error message describing why this metadata set operation failed
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Error;
+	FString Error = "";
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAdminExtendedPaginationError
+{
+	GENERATED_BODY()
+	/**
+	 * Which field in the pagination that this error relates to
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Field = "";
+	/**
+	 * The error message in question
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Message = "";
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAdminExtendedIndexBasedPagination
+{
+    GENERATED_BODY()
+    /**
+     * How many entries in total exists in the paginated list
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    int32 Total = 0;
+    /**
+     * How many entries (counting from the beginning of the paginated list) from the first entry that the current page starts at
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    int32 Offset = 0;
+    /**
+     * Number of entries on each page
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    int32 Per_page = 0;
+    /**
+     * The page index to use for fetching the last page of entries
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    int32 Last_page = 0;
+    /**
+     * The page index used for fetching this page of entries
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    int32 Current_page = 0;
+    /**
+     * The page index to use for fetching the page of entries immediately succeeding this page of entries
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    FString Next_page = "";
+    /**
+     * The page index to use for fetching the page of entries immediately preceding this page of entries
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    FString Prev_page = "";
+    /**
+     * List of pagination errors (if any). These are errors specifically related to the pagination of the entry set.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    TArray<FLootLockerAdminExtendedPaginationError> Errors;
 };
 
 //==================================================
@@ -260,6 +320,35 @@ struct FLootLockerAdminMetadataOperationsAction
  *
  */
 USTRUCT(BlueprintType, Category = "LootLockerAdmin")
+struct FLootLockerAdminListMetadataResponse : public FLootLockerAdminResponse
+{
+	GENERATED_BODY()
+	/**
+	 * List of metadata entries on this page of metadata
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	TArray<FLootLockerAdminMetadataEntry> Entries;
+	/**
+	 * Pagination data for this set of metadata entries
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FLootLockerAdminExtendedIndexBasedPagination Pagination;
+	/*
+	Internal Use Only
+	 */
+	int LOOTLOCKERADMINSDK_API __INTERNAL_GetEntryIndexByKey(const FString Key) const;
+	/*
+	Internal Use Only
+	 */
+	void LOOTLOCKERADMINSDK_API __INTERNAL_GenerateKeyMap();
+private:
+	TMap<FString, int> KeyToEntryIndex = TMap<FString, int>();
+};
+
+/**
+ *
+ */
+USTRUCT(BlueprintType, Category = "LootLockerAdmin")
 struct FLootLockerAdminMetadataOperationsResponse : public FLootLockerAdminResponse
 {
 	GENERATED_BODY()
@@ -277,12 +366,17 @@ struct FLootLockerAdminMetadataOperationsResponse : public FLootLockerAdminRespo
 	 * The id of the specific source that the set operation was taken on
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
-	FString Source_id;
+	FString Source_id = "";
 };
 
 //==================================================
 // Blueprint Delegate Definitions
 //==================================================
+
+/**
+ * Blueprint response delegate for listing metadata
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminListMetadataResponseBP, FLootLockerAdminListMetadataResponse, Response);
 
 /**
  * Blueprint response delegate for metadata operations
@@ -292,6 +386,11 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminMetadataOperationsResponseBP, 
 //==================================================
 // C++ Delegate Definitions
 //==================================================
+
+/**
+ * C++ response delegate for listing metadata
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerAdminListMetadataResponseDelegate, FLootLockerAdminListMetadataResponse);
 
 /**
  * C++ response delegate for metadata operations
@@ -308,5 +407,6 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdminMetadataRequest : public UObject
     public:
     ULootLockerAdminMetadataRequest();
 
+	static void ListMetadata(const ELootLockerAdminMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerAdminListMetadataResponseBP& OnCompleteBP = FLootLockerAdminListMetadataResponseBP(), const FLootLockerAdminListMetadataResponseDelegate& OnComplete = FLootLockerAdminListMetadataResponseDelegate());
     static void MetadataOperations(const ELootLockerAdminMetadataSources Source, const FString& SourceId, const TArray<FLootLockerAdminMetadataOperationsAction>& Actions, const FLootLockerAdminMetadataOperationsResponseBP& OnCompletedRequestBP = FLootLockerAdminMetadataOperationsResponseBP(), const FLootLockerAdminMetadataOperationsResponseDelegate& OnCompletedRequest = FLootLockerAdminMetadataOperationsResponseDelegate());
 };

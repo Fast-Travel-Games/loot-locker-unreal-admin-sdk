@@ -60,7 +60,11 @@ public:
 	static FLootLockerAdminEndPoint CreateCurrency;
 	static FLootLockerAdminEndPoint ListCurrencies;
 
+	// Leaderboards
+	static FLootLockerAdminEndPoint CreateLeaderboard;
+
 	// Metadata
+	static FLootLockerAdminEndPoint ListMetadata;
 	static FLootLockerAdminEndPoint MetadataOperations;
 
 	// Players

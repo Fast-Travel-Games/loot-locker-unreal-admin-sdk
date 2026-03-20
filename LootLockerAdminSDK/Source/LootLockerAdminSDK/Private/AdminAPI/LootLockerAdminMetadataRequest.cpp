@@ -156,12 +156,115 @@ FLootLockerAdminMetadataEntry FLootLockerAdminMetadataEntry::_INTERNAL_MakeEntry
 	return Entry;
 }
 
+int FLootLockerAdminListMetadataResponse::__INTERNAL_GetEntryIndexByKey(const FString Key) const
+{
+	if (KeyToEntryIndex.Contains(Key))
+	{
+		const int* index = KeyToEntryIndex.Find(Key);
+		if (index != nullptr && *index >= 0 && *index < Entries.Num())
+		{
+			const FLootLockerAdminMetadataEntry& EntryRef = Entries[*index];
+			if (EntryRef.Key.Equals(Key))
+			{
+				return *index;
+			}
+		}
+	}
+	return -1;
+}
+
+void FLootLockerAdminListMetadataResponse::__INTERNAL_GenerateKeyMap()
+{
+	KeyToEntryIndex = TMap<FString, int>();
+	int index = 0;
+	for (FLootLockerAdminMetadataEntry& Entry : Entries)
+	{
+		KeyToEntryIndex.Add(Entry.Key, index++);
+	}
+}
+
 //==================================================
 // Metadata Request Handler
 //==================================================
 
 ULootLockerAdminMetadataRequest::ULootLockerAdminMetadataRequest()
 {
+}
+
+void ULootLockerAdminMetadataRequest::ListMetadata(const ELootLockerAdminMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FString& Key, const TArray<FString>& Tags, const bool IgnoreFiles, const FLootLockerAdminListMetadataResponseBP& OnCompleteBP, const FLootLockerAdminListMetadataResponseDelegate& OnComplete)
+{
+	TMultiMap<FString, FString> QueryParams;
+	if (Page > 0) QueryParams.Add("page", FString::FromInt(Page));
+	if (PerPage > 0) QueryParams.Add("per_page", FString::FromInt(PerPage));
+	if (!Key.IsEmpty()) QueryParams.Add("key", Key);
+	if (Tags.Num() > 0) {
+		for (FString Tag : Tags)
+		{
+			QueryParams.Add("tags", Tag);
+		}
+	}
+	if (IgnoreFiles) QueryParams.Add("ignore_files", "true");
+
+	FString SourceAsString = ULootLockerAdminEnumUtils::GetEnum(TEXT("ELootLockerAdminMetadataSources"), static_cast<int32>(Source)).ToLower();
+	SourceAsString.ReplaceCharInline(' ', '_');
+
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListMetadataResponse>(FLootLockerAdminEmptyRequest(), ULootLockerAdminEndpoints::ListMetadata, { Config->GameID, SourceAsString, SourceID }, QueryParams, FLootLockerAdminListMetadataResponseBP(), FLootLockerAdminListMetadataResponseDelegate(), ULootLockerAdminHttpClient::ResponseInspector<FLootLockerAdminListMetadataResponse>::FLootLockerAdminResponseInspectorCallback::CreateLambda([OnCompleteBP, OnComplete](FLootLockerAdminListMetadataResponse& Response)
+	{
+		// Make sure we will have entries to parse before continuing
+		if(!Response.Success || Response.Entries.Num() <= 0)
+		{
+			(void) OnCompleteBP.ExecuteIfBound(Response);
+			(void) OnComplete.ExecuteIfBound(Response);
+			return;
+		}
+		Response.__INTERNAL_GenerateKeyMap();
+		TSharedPtr<FJsonObject> obj = LootLockerAdminUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+		// Ensure that the full response was parsed before continuing
+		if(!obj.IsValid())
+		{
+			(void) OnCompleteBP.ExecuteIfBound(Response);
+			(void) OnComplete.ExecuteIfBound(Response);
+			return;
+		}
+
+		TArray<TSharedPtr<FJsonValue>> JsonEntries = obj.Get()->GetArrayField(TEXT("entries"));
+		// Make sure that the entries array was parsed before continuing
+		if(JsonEntries.Num() != Response.Entries.Num())
+		{
+			(void) OnCompleteBP.ExecuteIfBound(Response);
+			(void) OnComplete.ExecuteIfBound(Response);
+			return;
+		}
+
+		for (TSharedPtr<FJsonValue> JsonEntry : JsonEntries)
+		{
+			TSharedPtr<FJsonObject> JsonEntryObject = JsonEntry.Get()->AsObject();
+
+			FString EntryKey = JsonEntryObject.Get()->GetStringField(TEXT("key"));
+			int EntryIndex = Response.__INTERNAL_GetEntryIndexByKey(EntryKey);
+
+			// If the fetched entry index is out of range or if it points to the wrong key, try to find the entry the old-fashioned way before giving up
+			if (EntryIndex < 0 || EntryIndex >= Response.Entries.Num()
+				|| !Response.Entries[EntryIndex].Key.Equals(EntryKey)) {
+				for (FLootLockerAdminMetadataEntry& ResponseEntry : Response.Entries)
+				{
+					if (ResponseEntry.Key.Equals(EntryKey))
+					{
+						ResponseEntry._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
+					}
+				}
+			}
+			else
+			{
+				FLootLockerAdminMetadataEntry& ResponseEntry = Response.Entries[EntryIndex];
+				ResponseEntry._INTERNAL_SetJsonRepresentation(*JsonEntryObject.Get());
+			}
+		}
+
+		(void) OnCompleteBP.ExecuteIfBound(Response);
+		(void) OnComplete.ExecuteIfBound(Response);
+	}));
 }
 
 void ULootLockerAdminMetadataRequest::MetadataOperations(const ELootLockerAdminMetadataSources Source, const FString& SourceID, const TArray<FLootLockerAdminMetadataOperationsAction>& Actions, const FLootLockerAdminMetadataOperationsResponseBP& OnCompletedRequestBP, const FLootLockerAdminMetadataOperationsResponseDelegate& OnCompletedRequest)

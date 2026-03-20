@@ -5,6 +5,7 @@
 #include "AdminAPI/LootLockerAdminAssetRequest.h"
 #include "AdminAPI/LootLockerAdminCatalogRequest.h"
 #include "AdminAPI/LootLockerAdminCurrencyRequest.h"
+#include "AdminAPI/LootLockerAdminLeaderboardRequest.h"
 #include "AdminAPI/LootLockerAdminMetadataRequest.h"
 #include "AdminAPI/LootLockerAdminPlayerRequest.h"
 #include "AdminAPI/LootLockerAdminRewardRequest.h"
@@ -169,9 +170,40 @@ public:
 	static void ListCurrencies(const FLootLockerAdminListCurrenciesResponseDelegate& OnCompletedRequest);
 
 	//==================================================
+	// Leaderboards
+	//==================================================
+
+	/**
+	 * Create a new leaderboard with the provided details.
+	 * https://ref.lootlocker.com/admin/api-5291249
+	 *
+	 * @param LeaderboardKey Unique key for the leaderboard
+	 * @param Name Name of the leaderboard
+	 * @param Type Type of the leaderboard
+	 * @param HasMetadata Whether the leaderboard has metadata
+	 * @param DirectionMethod Sort order (Ascending or Descending), based on whether highest rank is lowest or highest number
+	 * @param EnableGameApiWrites Whether the Game API is permitted to write to this leaderboard
+	 * @param OverwriteScoreOnSubmit Submitting a new score for member will always overwrite their existing score on leaderboard
+	 * @param OnCompletedRequest Delegate for handling the response
+	 */
+	static void CreateLeaderboard(FString LeaderboardKey, FString Name, ELootLockerAdminLeaderboardType Type, bool HasMetadata, ELootLockerAdminLeaderboardDirection DirectionMethod, bool EnableGameApiWrites, bool OverwriteScoreOnSubmit, const FLootLockerAdminCreateLeaderboardResponseDelegate& OnCompletedRequest);
+
+	//==================================================
 	// Metadata
 	//==================================================
 
+	/**
+	 * List the requested page of Metadata for the specified source with the specified pagination
+     *
+	 * @param Source The source type for which to request metadata
+	 * @param SourceID The specific source id for which to request metadata
+	 * @param Page Used together with PerPage to apply pagination to this request. Page designates which "page" of items to fetch
+	 * @param PerPage Used together with Page to apply pagination to this request.PerPage designates how many items are considered a "page"
+     * @param OnComplete delegate for handling the server response
+	 * @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
+	 */
+	static void ListMetadata(const ELootLockerAdminMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FLootLockerAdminListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles = false);
+	
 	/**
 	 * Set the provided metadata for the specified source
 	 *
