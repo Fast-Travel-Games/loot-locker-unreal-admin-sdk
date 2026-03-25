@@ -13,16 +13,16 @@
 UENUM(BlueprintType)
 enum class ELootLockerAdminLeaderboardType : uint8
 {
-	/**
-	 * Meant for LootLocker player leaderboards.
-	 * When submitting scores you must use player_id, but when retrieving data LootLocker will automatically attach player data such as name and other public data on that player.
-	 */
-	player = 0         UMETA(DisplayName = "Player"),
-	/**
-	 * Use this if you do not want the extended player details from the player type leaderboard.
-	 * This type allows you to create leaderboards not meant for players (guild/clan for example), or if your player data is not stored in LootLocker.
-	 */
-	generic = 1        UMETA(DisplayName = "Generic"),
+    /**
+     * Meant for LootLocker player leaderboards.
+     * When submitting scores you must use player_id, but when retrieving data LootLocker will automatically attach player data such as name and other public data on that player.
+     */
+    player = 0         UMETA(DisplayName = "Player"),
+    /**
+     * Use this if you do not want the extended player details from the player type leaderboard.
+     * This type allows you to create leaderboards not meant for players (guild/clan for example), or if your player data is not stored in LootLocker.
+     */
+    generic = 1        UMETA(DisplayName = "Generic"),
 };
 
 /**
@@ -31,21 +31,105 @@ enum class ELootLockerAdminLeaderboardType : uint8
 UENUM(BlueprintType)
 enum class ELootLockerAdminLeaderboardDirection : uint8
 {
-	/**
-	 * Sort from lowest to highest, meaning the lowest number is highest on the leaderboard
-	 */
-	ascending = 0         UMETA(DisplayName = "Ascending"),
-	/**
-	 * Sort from highest to lowest, meaning the highest number is highest on the leaderboard
-	 */
-	descending = 1        UMETA(DisplayName = "Descending"),
+    /**
+     * Sort from lowest to highest, meaning the lowest number is highest on the leaderboard
+     */
+    ascending = 0         UMETA(DisplayName = "Ascending"),
+    /**
+     * Sort from highest to lowest, meaning the highest number is highest on the leaderboard
+     */
+    descending = 1        UMETA(DisplayName = "Descending"),
+};
+
+/**
+* What reward kind
+*/
+UENUM(BlueprintType)
+enum class ELootLockerAdminLeaderboardRewardKind : uint8
+{
+    asset = 0 UMETA(DisplayName = "Asset"),
+    currency = 1 UMETA(DisplayName = "Currency"),
+    progression_points = 2 UMETA(DisplayName = "Progression points"),
+    progression_reset = 3 UMETA(DisplayName = "Progression reset"),
+};
+
+/**
+ * Which direction should the reward for a leaderboard be for
+ */
+UENUM(BlueprintType)
+enum class ELootLockerAdminLeaderboardRewardDirection : uint8
+{
+    /**
+     * Bottom direction
+     */
+    asc = 0         UMETA(DisplayName = "Bottom"),
+    /**
+     * Top direction
+     */
+    desc = 1        UMETA(DisplayName = "Top"),
+};
+
+
+/**
+ * Set if values are used for rank or percentage of players
+ */
+UENUM(BlueprintType)
+enum class ELootLockerAdminLeaderboardRewardPositionType : uint8
+{
+    /**
+     * Values are used for rank value
+     */
+    by_rank = 0         UMETA(DisplayName = "Rank"),
+    /**
+     * Values are used as a percentage of all
+     */
+    by_percent = 1        UMETA(DisplayName = "Percent"),
 };
 
 //==================================================
 // Data Type Definitions
 //==================================================
 
+USTRUCT(BlueprintType)
+struct FLootLockerAdminLeaderboardRewardDefinition
+{
+    GENERATED_BODY()
+    /**
+     * Min value for the cohort to get reward
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    int Min = 0;
+    /**
+     * Max value for the cohort to get reward
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    int Max = 0;
+    /**
+     * What method to use
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    ELootLockerAdminLeaderboardRewardPositionType Method = ELootLockerAdminLeaderboardRewardPositionType::by_percent;
+    /**
+     * Are the values based from the top or bottom
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    ELootLockerAdminLeaderboardRewardDirection Direction = ELootLockerAdminLeaderboardRewardDirection::asc;
+};
 
+USTRUCT(BlueprintType)
+struct FLootLockerAdminLeaderboardRewardType
+{
+    GENERATED_BODY()
+    /**
+     * Defines the cohort the reward is for
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    FLootLockerAdminLeaderboardRewardDefinition Args;
+
+protected:
+    UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "LootLockerAdmin")
+    FString Type = "between";
+};
 
 //==================================================
 // Request Definitions
@@ -73,7 +157,7 @@ public:
 
     FLootLockerAdminLeaderboardBaseRequest()
     {
-	}
+    }
 
     /**
      * The unique key of the leaderboard
@@ -118,8 +202,8 @@ public:
 
     FLootLockerAdminCreateLeaderboardRequest()
     {
-	}
-    
+    }
+
     /**
      * The type of leaderboard to create
      */
@@ -130,6 +214,43 @@ public:
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
     bool Has_metadata = false;
+};
+
+USTRUCT(BlueprintType)
+struct FLootLockerAdminLeaderboardAddRewardRequest
+{
+    GENERATED_BODY()
+public:
+    FLootLockerAdminLeaderboardAddRewardRequest(
+        const FString& InRewardId,
+        const ELootLockerAdminLeaderboardRewardKind InRewardKind,
+        const TArray<FLootLockerAdminLeaderboardRewardType>& InPredicates)
+        :
+        Reward_id(InRewardId),
+        Reward_kind(InRewardKind),
+        Predicates(InPredicates)
+    {
+    }
+
+    FLootLockerAdminLeaderboardAddRewardRequest()
+    {
+    }
+
+    /**
+     * What is the ULID of the reward
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    FString Reward_id = "";
+    /**
+     * What kind is the ULID referring to. NOTE: A currency kind must refer to a group to properly account for the correct amount to reward with.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    ELootLockerAdminLeaderboardRewardKind Reward_kind = ELootLockerAdminLeaderboardRewardKind::asset;
+    /**
+     * The rules for who the reward will be handed to
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    TArray<FLootLockerAdminLeaderboardRewardType> Predicates;
 };
 
 //==================================================
@@ -145,6 +266,11 @@ struct FLootLockerAdminCreateLeaderboardResponse : public FLootLockerAdminRespon
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
     int ID = 0;
+    /**
+     * The ULID of this leaderboard
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+    FString ULID = "";
     /**
      * The ID of the game this leaderboard is in
      */
@@ -205,6 +331,10 @@ struct FLootLockerAdminCreateLeaderboardResponse : public FLootLockerAdminRespon
  * Blueprint response delegate for creating leaderboard
  */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateLeaderboardResponseBP, FLootLockerAdminCreateLeaderboardResponse, Response);
+/**
+ * Blueprint response delegate for creating leaderboard
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminLeaderboardAddRewardResponseBP, FLootLockerAdminResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
@@ -214,6 +344,10 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateLeaderboardResponseBP, F
  * C++ response delegate for creating leaderboard
  */
 DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateLeaderboardResponseDelegate, FLootLockerAdminCreateLeaderboardResponse);
+/**
+ * C++ response delegate for creating leaderboard
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerAdminLeaderboardAddRewardResponseDelegate, FLootLockerAdminResponse);
 
 /**
  *
@@ -225,5 +359,6 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdminLeaderboardRequest : public UObject
     public:
     ULootLockerAdminLeaderboardRequest();
 
-	static void CreateLeaderboard(const FLootLockerAdminCreateLeaderboardRequest& CreateLeaderboardRequest, const FLootLockerAdminCreateLeaderboardResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateLeaderboardResponseBP(), const FLootLockerAdminCreateLeaderboardResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateLeaderboardResponseDelegate());
+    static void CreateLeaderboard(const FLootLockerAdminCreateLeaderboardRequest& CreateLeaderboardRequest, const FLootLockerAdminCreateLeaderboardResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateLeaderboardResponseBP(), const FLootLockerAdminCreateLeaderboardResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateLeaderboardResponseDelegate());
+    static void LeaderboardAddReward(const int LeaderboardId, const FLootLockerAdminLeaderboardAddRewardRequest& Request, const FLootLockerAdminLeaderboardAddRewardResponseBP& OnCompletedRequestBP = FLootLockerAdminLeaderboardAddRewardResponseBP(), const FLootLockerAdminLeaderboardAddRewardResponseDelegate& OnCompletedRequest = FLootLockerAdminLeaderboardAddRewardResponseDelegate());
 };

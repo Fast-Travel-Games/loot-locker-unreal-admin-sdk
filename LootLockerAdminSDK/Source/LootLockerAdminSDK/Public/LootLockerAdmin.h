@@ -188,6 +188,16 @@ public:
 	 */
 	static void CreateLeaderboard(FString LeaderboardKey, FString Name, ELootLockerAdminLeaderboardType Type, bool HasMetadata, ELootLockerAdminLeaderboardDirection DirectionMethod, bool EnableGameApiWrites, bool OverwriteScoreOnSubmit, const FLootLockerAdminCreateLeaderboardResponseDelegate& OnCompletedRequest);
 
+	/**
+	 * Add a Reward to a leaderboard
+	 * https://ref.lootlocker.com/admin/api-5577268
+	 *
+	 * @param LeaderboardId Id for the leaderboard
+	 * @param Request Reward data
+	 * @param OnCompletedRequest Delegate for handling the response
+	 */
+	static void LeaderboardAddReward(int LeaderboardId, const FLootLockerAdminLeaderboardAddRewardRequest& Request, const FLootLockerAdminLeaderboardAddRewardResponseDelegate& OnCompletedRequest);
+
 	//==================================================
 	// Metadata
 	//==================================================
@@ -203,7 +213,7 @@ public:
 	 * @param IgnoreFiles Optional: Base64 values will be set to content_type "application/x-redacted" and the content will be an empty String. Use this to avoid accidentally fetching large data files.
 	 */
 	static void ListMetadata(const ELootLockerAdminMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FLootLockerAdminListMetadataResponseDelegate& OnComplete, const bool IgnoreFiles = false);
-	
+
 	/**
 	 * Set the provided metadata for the specified source
 	 *

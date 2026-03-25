@@ -207,6 +207,17 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Leaderboards")
 	static void CreateLeaderboard(FString LeaderboardKey, FString Name, ELootLockerAdminLeaderboardType Type, bool HasMetadata, ELootLockerAdminLeaderboardDirection DirectionMethod, bool EnableGameApiWrites, bool OverwriteScoreOnSubmit, const FLootLockerAdminCreateLeaderboardResponseBP& OnCompletedRequest);
 
+	/**
+	 * Add a Reward to a leaderboard
+	 * https://ref.lootlocker.com/admin/api-5577268
+	 *
+	 * @param LeaderboardId Id for the leaderboard
+	 * @param Request Reward data
+	 * @param OnCompletedRequest Delegate for handling the response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Leaderboards")
+	static void LeaderboardAddReward(int LeaderboardId, const FLootLockerAdminLeaderboardAddRewardRequest& Request, const FLootLockerAdminLeaderboardAddRewardResponseBP& OnCompletedRequest);
+
 	//==================================================
 	// Metadata
 	//==================================================

@@ -24,6 +24,7 @@ FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListCurrencies = InitEndpoin
 
 // Leaderboards
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateLeaderboard = InitEndpoint("game/{0}/leaderboards", ELootLockerAdminHTTPMethod::POST);
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::LeaderboardAddReward = InitEndpoint("game/{0}/leaderboard/{1}/reward", ELootLockerAdminHTTPMethod::POST);
 
 // Metadata
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListMetadata = InitEndpoint("game/{0}/metadata/source/{1}/id/{2}", ELootLockerAdminHTTPMethod::GET);

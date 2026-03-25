@@ -95,6 +95,11 @@ void ULootLockerAdmin::CreateLeaderboard(FString LeaderboardKey, FString Name, E
 	ULootLockerAdminLeaderboardRequest::CreateLeaderboard(Request, FLootLockerAdminCreateLeaderboardResponseBP(), OnCompletedRequest);
 }
 
+void ULootLockerAdmin::LeaderboardAddReward(int LeaderboardId, const FLootLockerAdminLeaderboardAddRewardRequest& Request, const FLootLockerAdminLeaderboardAddRewardResponseDelegate& OnCompletedRequest)
+{
+	ULootLockerAdminLeaderboardRequest::LeaderboardAddReward(LeaderboardId, Request, FLootLockerAdminLeaderboardAddRewardResponseBP(), OnCompletedRequest);
+}
+
 // METADATA
 
 void ULootLockerAdmin::ListMetadata(const ELootLockerAdminMetadataSources Source, const FString& SourceID, const int Page, const int PerPage, const FLootLockerAdminListMetadataResponseDelegate& OnCompletedRequest, const bool IgnoreFiles)

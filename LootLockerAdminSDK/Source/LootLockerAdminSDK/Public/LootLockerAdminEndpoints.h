@@ -62,6 +62,7 @@ public:
 
 	// Leaderboards
 	static FLootLockerAdminEndPoint CreateLeaderboard;
+	static FLootLockerAdminEndPoint LeaderboardAddReward;
 
 	// Metadata
 	static FLootLockerAdminEndPoint ListMetadata;
