@@ -73,6 +73,7 @@ public:
 	static FLootLockerAdminEndPoint ListPlayers;
 
 	// Reward
+	static FLootLockerAdminEndPoint CreateCurrencyReward;
 	static FLootLockerAdminEndPoint CreateGroup;
 
 	// Session

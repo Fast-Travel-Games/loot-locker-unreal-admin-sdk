@@ -355,10 +355,20 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Players")
 	static void ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseBP& OnCompletedRequest);
 
-	
+
 	//==================================================
 	// Reward
 	//==================================================
+
+	/**
+	 * Create a currency reward
+	 * https://ref.lootlocker.com/admin/api-5773250
+	 *
+	 * @param Reward The currency reward data
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Reward")
+	static void CreateCurrencyReward(const FLootLockerAdminEntity& Reward, const FLootLockerAdminCreateCurrencyRewardResponseBP& OnCompletedRequest);
 
 	/**
 	 * Create a group

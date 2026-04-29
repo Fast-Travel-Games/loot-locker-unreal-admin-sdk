@@ -278,6 +278,15 @@ public:
 	//==================================================
 
 	/**
+	 * Create a currency reward
+	 * https://ref.lootlocker.com/admin/api-5773250
+	 *
+	 * @param Reward The currency reward data
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void CreateCurrencyReward(const FLootLockerAdminEntity& Reward, const FLootLockerAdminCreateCurrencyRewardResponseDelegate& OnCompletedRequest);
+
+	/**
 	 * Create a group
 	 * https://ref.lootlocker.com/admin/api-7331977
 	 *

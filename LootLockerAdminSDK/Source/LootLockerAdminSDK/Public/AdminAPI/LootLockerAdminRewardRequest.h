@@ -22,7 +22,7 @@ struct FLootLockerAdminEntityMetadata
 	/**
 	 * Key for metadata
 	 */
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	UPROPERTY(BlueprintReadOnly, Category = "LootLockerAdmin")
 	FString Key = "purchased_amount";
 	/**
 	 * Value for metadata
@@ -59,6 +59,31 @@ struct FLootLockerAdminEntity
 //==================================================
 // Request Definitions
 //==================================================
+
+/**
+ * Request data for CreateCurrencyReward
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerAdminCreateCurrencyRewardRequest : public FLootLockerAdminEmptyRequest
+{
+	GENERATED_BODY()
+
+	/**
+	 * Id of the entity
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	FString Entity_id = "";
+	/**
+	 * What kind is the entity
+	 */
+	UPROPERTY(BlueprintReadOnly, Category = "LootLockerAdmin")
+	FString Entity_kind = "currency";
+	/**
+	 * Set the amount of currencies in the reward
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	TArray<FLootLockerAdminEntityMetadata> Metadata;
+};
 
 /**
  * Request data for CreateGroup call
@@ -104,7 +129,7 @@ struct FLootLockerAdminCreateGroupRequest : public FLootLockerAdminEmptyRequest
  * Response data for CreateGroup call
  */
 USTRUCT(BlueprintType)
-struct FLootLockerAdminCreateGroupResponse : public FLootLockerAdminResponse
+struct FLootLockerAdminCreateRewardResponse : public FLootLockerAdminResponse
 {
 	GENERATED_BODY()
 
@@ -120,18 +145,28 @@ struct FLootLockerAdminCreateGroupResponse : public FLootLockerAdminResponse
 //==================================================
 
 /**
- * Blueprint response delegate for creating a group
+ * Blueprint response delegate for creating a currency reward
  */
-DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseBP, FLootLockerAdminCreateGroupResponse, Response);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateCurrencyRewardResponseBP, FLootLockerAdminCreateRewardResponse, Response);
+
+/**
+ * Blueprint response delegate for creating a group reward
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseBP, FLootLockerAdminCreateRewardResponse, Response);
 
 //==================================================
 // C++ Delegate Definitions
 //==================================================
 
 /**
- * C++ response delegate for creating a group
+ * C++ response delegate for creating a currency reward
  */
-DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseDelegate, FLootLockerAdminCreateGroupResponse);
+DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateCurrencyRewardResponseDelegate, FLootLockerAdminCreateRewardResponse);
+
+/**
+ * C++ response delegate for creating a group reward
+ */
+DECLARE_DELEGATE_OneParam(FLootLockerAdminCreateGroupResponseDelegate, FLootLockerAdminCreateRewardResponse);
 
 /**
  *
@@ -143,5 +178,6 @@ class LOOTLOCKERADMINSDK_API ULootLockerAdminRewardRequest : public UObject
     public:
     ULootLockerAdminRewardRequest();
 
+	static void CreateCurrencyReward(const FLootLockerAdminEntity& Reward, const FLootLockerAdminCreateCurrencyRewardResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateCurrencyRewardResponseBP(), const FLootLockerAdminCreateCurrencyRewardResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateCurrencyRewardResponseDelegate());
     static void CreateGroup(const TArray<FLootLockerAdminEntity>& Entities, const FString& Name, const FString& Description, const FLootLockerAdminCreateGroupResponseBP& OnCompletedRequestBP = FLootLockerAdminCreateGroupResponseBP(), const FLootLockerAdminCreateGroupResponseDelegate& OnCompletedRequest = FLootLockerAdminCreateGroupResponseDelegate());
 };

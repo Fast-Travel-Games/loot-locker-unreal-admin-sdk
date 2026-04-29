@@ -172,8 +172,12 @@ void ULootLockerAdminBP::ListPlayers(const int Count, const int Page, const FLoo
 
 // REWARD
 
+void ULootLockerAdminBP::CreateCurrencyReward(const FLootLockerAdminEntity& Reward, const FLootLockerAdminCreateCurrencyRewardResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminRewardRequest::CreateCurrencyReward(Reward, OnCompletedRequest);
+}
+
 void ULootLockerAdminBP::CreateGroup(const TArray<FLootLockerAdminEntity>& Entities, const FString& Name, const FString& Description, const FLootLockerAdminCreateGroupResponseBP& OnCompletedRequest)
 {
 	ULootLockerAdminRewardRequest::CreateGroup(Entities, Name, Description, OnCompletedRequest);
 }
-

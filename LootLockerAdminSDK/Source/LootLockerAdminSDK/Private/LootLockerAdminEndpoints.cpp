@@ -35,6 +35,7 @@ FLootLockerAdminEndPoint ULootLockerAdminEndpoints::GrantAssetToPlayer = InitEnd
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListPlayers = InitEndpoint("game/{0}/player/list", ELootLockerAdminHTTPMethod::GET);
 
 // Rewards
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateCurrencyReward = InitEndpoint("game/{0}/reward", ELootLockerAdminHTTPMethod::POST);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateGroup = InitEndpoint("game/{0}/reward/group", ELootLockerAdminHTTPMethod::POST);
 
 // Session
