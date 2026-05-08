@@ -51,6 +51,7 @@ enum class ELootLockerAdminLeaderboardRewardKind : uint8
     currency = 1 UMETA(DisplayName = "Currency"),
     progression_points = 2 UMETA(DisplayName = "Progression points"),
     progression_reset = 3 UMETA(DisplayName = "Progression reset"),
+	group = 4 UMETA(DisplayName = "Group"),
 };
 
 /**
