@@ -264,6 +264,16 @@ public:
 	static void GrantAsset(const FString& PlayerId, const int AssetId, const FLootLockerAdminGrantAssetResponseDelegate& OnCompletedRequest);
 
 	/**
+	 * Delete an asset from a player
+	 * https://ref.lootlocker.com/admin/api-5291418
+	 *
+	 * @param PlayerId What player
+	 * @param AssetId Which asset, will delete instances of it
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void DeleteAssetFromPlayer(const FString& PlayerId, const int AssetId, const FLootLockerAdminDeleteAssetFromPlayerResponseDelegate& OnCompletedRequest);
+
+	/**
 	 * List players for the game
 	 * https://ref.lootlocker.com/admin/api-5291241
 	 *
@@ -272,6 +282,25 @@ public:
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	static void ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseDelegate& OnCompletedRequest);
+
+	/**
+	 * List inventory of a player
+	 * https://ref.lootlocker.com/admin/api-5291239
+	 *
+	 * @param PlayerId Which player to list inventory for
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void ListPlayerInventory(const FString& PlayerId, const FLootLockerAdminListPlayerInventoryResponseDelegate& OnCompletedRequest);
+
+	/**
+	 * Delete data from a player profile
+	 * Admin ref not published
+	 *
+	 * @param PlayerId Which player to list inventory for
+	 * @param Request Include what data to delete
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	static void DeletePlayerData(const FString& PlayerId, const FLootLockerAdminDeletePlayerDataRequest& Request, const FLootLockerAdminDeletePlayerDataResponseDelegate& OnCompletedRequest);
 
 	//==================================================
 	// Reward

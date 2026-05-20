@@ -15,6 +15,12 @@ void ULootLockerAdminPlayerRequest::GrantAsset(const FString& PlayerId, const in
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminResponse>(Request, ULootLockerAdminEndpoints::GrantAssetToPlayer, {Config->GameID, PlayerId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
+void ULootLockerAdminPlayerRequest::DeleteAssetFromPlayer(const FString& PlayerId, const int AssetId, const FLootLockerAdminDeleteAssetFromPlayerResponseBP& OnCompletedRequestBP, const FLootLockerAdminDeleteAssetFromPlayerResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::DeleteAssetFromPlayer, {Config->GameID, PlayerId, AssetId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
 void ULootLockerAdminPlayerRequest::ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseBP& OnCompletedRequestBP, const FLootLockerAdminListPlayersResponseDelegate& OnCompletedRequest)
 {
 	TMultiMap<FString, FString> QueryParams;
@@ -23,4 +29,16 @@ void ULootLockerAdminPlayerRequest::ListPlayers(const int Count, const int Page,
 
 	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListPlayersResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::ListPlayers, {Config->GameID}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
+void ULootLockerAdminPlayerRequest::ListPlayerInventory(const FString& PlayerId, const FLootLockerAdminListPlayerInventoryResponseBP& OnCompletedRequestBP, const FLootLockerAdminListPlayerInventoryResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListPlayerInventoryResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::ListPlayerInventory, {Config->GameID, PlayerId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
+}
+
+void ULootLockerAdminPlayerRequest::DeletePlayerData(const FString& PlayerId, const FLootLockerAdminDeletePlayerDataRequest& Request, const FLootLockerAdminDeletePlayerDataResponseBP& OnCompletedRequestBP, const FLootLockerAdminDeletePlayerDataResponseDelegate& OnCompletedRequest)
+{
+	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
+	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminListPlayerInventoryResponse>(Request, ULootLockerAdminEndpoints::DeletePlayerData, {Config->GameID, PlayerId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }

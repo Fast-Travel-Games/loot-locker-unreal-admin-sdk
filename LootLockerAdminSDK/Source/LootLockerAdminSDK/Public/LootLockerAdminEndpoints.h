@@ -70,7 +70,10 @@ public:
 
 	// Players
 	static FLootLockerAdminEndPoint GrantAssetToPlayer;
+	static FLootLockerAdminEndPoint DeleteAssetFromPlayer;
 	static FLootLockerAdminEndPoint ListPlayers;
+	static FLootLockerAdminEndPoint ListPlayerInventory;
+	static FLootLockerAdminEndPoint DeletePlayerData;
 
 	// Reward
 	static FLootLockerAdminEndPoint CreateCurrencyReward;

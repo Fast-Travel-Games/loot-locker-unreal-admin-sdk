@@ -32,7 +32,10 @@ FLootLockerAdminEndPoint ULootLockerAdminEndpoints::MetadataOperations = InitEnd
 
 // Players
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::GrantAssetToPlayer = InitEndpoint("v1/game/{0}/player/{1}/inventory/grant", ELootLockerAdminHTTPMethod::POST);
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::DeleteAssetFromPlayer = InitEndpoint("v1/game/{0}/player/{1}/inventory/{2}", ELootLockerAdminHTTPMethod::DELETE);
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListPlayers = InitEndpoint("game/{0}/player/list", ELootLockerAdminHTTPMethod::GET);
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::ListPlayerInventory = InitEndpoint("game/{0}/player/{1}/inventory", ELootLockerAdminHTTPMethod::GET);
+FLootLockerAdminEndPoint ULootLockerAdminEndpoints::DeletePlayerData = InitEndpoint("game/{0}/player/{1}/delete-data", ELootLockerAdminHTTPMethod::POST);
 
 // Rewards
 FLootLockerAdminEndPoint ULootLockerAdminEndpoints::CreateCurrencyReward = InitEndpoint("game/{0}/reward", ELootLockerAdminHTTPMethod::POST);

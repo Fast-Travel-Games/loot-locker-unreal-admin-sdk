@@ -345,6 +345,17 @@ public:
 	static void GrantAsset(const FString& PlayerId, const int AssetId, const FLootLockerAdminGrantAssetResponseBP& OnCompletedRequest);
 
 	/**
+	 * Delete an asset from a player
+	 * https://ref.lootlocker.com/admin/api-5291418
+	 *
+	 * @param PlayerId What player
+	 * @param AssetId Which asset, will delete instances of it
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Players")
+	static void DeleteAssetFromPlayer(const FString& PlayerId, const int AssetId, const FLootLockerAdminDeleteAssetFromPlayerResponseBP& OnCompletedRequest);
+
+	/**
 	 * List players for the game
 	 * https://ref.lootlocker.com/admin/api-5291241
 	 *
@@ -355,6 +366,26 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Players")
 	static void ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseBP& OnCompletedRequest);
 
+	/**
+	 * List inventory of a player
+	 * https://ref.lootlocker.com/admin/api-5291239
+	 *
+	 * @param PlayerId Which player to list inventory for
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Players")
+	static void ListPlayerInventory(const FString& PlayerId, const FLootLockerAdminListPlayerInventoryResponseBP& OnCompletedRequest);
+
+	/**
+	 * Delete data from a player profile
+	 * Admin ref not published
+	 *
+	 * @param PlayerId Which player to list inventory for
+	 * @param Request Include what data to delete
+	 * @param OnCompletedRequest Delegate for handling the server response
+	 */
+	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Players")
+	static void DeletePlayerData(const FString& PlayerId, const FLootLockerAdminDeletePlayerDataRequest& Request, const FLootLockerAdminDeletePlayerDataResponseBP& OnCompletedRequest);
 
 	//==================================================
 	// Reward

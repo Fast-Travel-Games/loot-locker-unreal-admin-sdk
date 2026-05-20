@@ -165,9 +165,24 @@ void ULootLockerAdminBP::GrantAsset(const FString& PlayerId, const int AssetId, 
 	ULootLockerAdminPlayerRequest::GrantAsset(PlayerId, AssetId, OnCompletedRequest);
 }
 
+void ULootLockerAdminBP::DeleteAssetFromPlayer(const FString& PlayerId, const int AssetId, const FLootLockerAdminDeleteAssetFromPlayerResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminPlayerRequest::DeleteAssetFromPlayer(PlayerId, AssetId, OnCompletedRequest);
+}
+
 void ULootLockerAdminBP::ListPlayers(const int Count, const int Page, const FLootLockerAdminListPlayersResponseBP& OnCompletedRequest)
 {
 	ULootLockerAdminPlayerRequest::ListPlayers(Count, Page, OnCompletedRequest);
+}
+
+void ULootLockerAdminBP::ListPlayerInventory(const FString& PlayerId, const FLootLockerAdminListPlayerInventoryResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminPlayerRequest::ListPlayerInventory(PlayerId, OnCompletedRequest);
+}
+
+void ULootLockerAdminBP::DeletePlayerData(const FString& PlayerId, const FLootLockerAdminDeletePlayerDataRequest& Request, const FLootLockerAdminDeletePlayerDataResponseBP& OnCompletedRequest)
+{
+	ULootLockerAdminPlayerRequest::DeletePlayerData(PlayerId, Request, OnCompletedRequest);
 }
 
 // REWARD
