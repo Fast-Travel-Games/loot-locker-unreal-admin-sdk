@@ -31,10 +31,14 @@ void ULootLockerAdminAssetRequest::ActivateAsset(const int AssetId, const bool b
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminResponse>(Request, ULootLockerAdminEndpoints::ActivateAsset, {Config->GameID, AssetId}, EmptyQueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }
 
-void ULootLockerAdminAssetRequest::GetAssets(const bool bIncludeInactive, const FLootLockerAdminGetAssetsResponseBP& OnCompletedRequestBP, const FLootLockerAdminGetAssetsResponseDelegate& OnCompletedRequest)
+void ULootLockerAdminAssetRequest::GetAssets(const bool bIncludeInactive, const int Page, const FLootLockerAdminGetAssetsResponseBP& OnCompletedRequestBP, const FLootLockerAdminGetAssetsResponseDelegate& OnCompletedRequest)
 {
 	TMultiMap<FString, FString> QueryParams;
 	QueryParams.Add("includeInactiveAssets", bIncludeInactive ? "true" : "false");
+	if (Page > 0)
+	{
+		QueryParams.Add("page", FString::Printf(TEXT("%d"), Page));
+	}
 	const ULootLockerAdminConfig* Config = GetDefault<ULootLockerAdminConfig>();
 	ULootLockerAdminHttpClient::SendRequest<FLootLockerAdminGetAssetsResponse>(FLootLockerAdminEmptyRequest{}, ULootLockerAdminEndpoints::GetAssets, {Config->GameID}, QueryParams, OnCompletedRequestBP, OnCompletedRequest);
 }

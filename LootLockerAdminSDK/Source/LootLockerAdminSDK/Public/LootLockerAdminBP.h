@@ -74,10 +74,11 @@ public:
 	 * https://ref.lootlocker.com/admin/api-5291223
 	 *
 	 * @param bIncludeInactive If inactive assets should be included
+	 * @param Page Each request returns at max 100 assets. This set which page of all assets to get. Starts from 0 for first page
 	 * @param OnCompletedRequest Delegate for handling the server response
 	 */
 	UFUNCTION(BlueprintCallable, Category = "LootLockerAdmin Methods | Assets")
-	static void GetAssets(const bool bIncludeInactive, const FLootLockerAdminGetAssetsResponseBP& OnCompletedRequest);
+	static void GetAssets(const bool bIncludeInactive, const int Page, const FLootLockerAdminGetAssetsResponseBP& OnCompletedRequest);
 
 	//==================================================
 	// Catalog

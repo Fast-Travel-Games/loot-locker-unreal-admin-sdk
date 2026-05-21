@@ -26,9 +26,9 @@ void ULootLockerAdmin::ActivateAsset(const int AssetId, const bool bActive, cons
 	ULootLockerAdminAssetRequest::ActivateAsset(AssetId, bActive, FLootLockerAdminActivateAssetResponseBP(), OnCompletedRequest);
 }
 
-void ULootLockerAdmin::GetAssets(const bool bIncludeInactive, const FLootLockerAdminGetAssetsResponseDelegate& OnCompletedRequest)
+void ULootLockerAdmin::GetAssets(const bool bIncludeInactive, const int Page, const FLootLockerAdminGetAssetsResponseDelegate& OnCompletedRequest)
 {
-	ULootLockerAdminAssetRequest::GetAssets(bIncludeInactive, FLootLockerAdminGetAssetsResponseBP(), OnCompletedRequest);
+	ULootLockerAdminAssetRequest::GetAssets(bIncludeInactive, Page, FLootLockerAdminGetAssetsResponseBP(), OnCompletedRequest);
 }
 
 // CATALOG

@@ -27,9 +27,9 @@ void ULootLockerAdminBP::ActivateAsset(const int AssetId, const bool bActive, co
 	ULootLockerAdminAssetRequest::ActivateAsset(AssetId, bActive, OnCompletedRequest);
 }
 
-void ULootLockerAdminBP::GetAssets(const bool bIncludeInactive, const FLootLockerAdminGetAssetsResponseBP& OnCompletedRequest)
+void ULootLockerAdminBP::GetAssets(const bool bIncludeInactive, const int Page, const FLootLockerAdminGetAssetsResponseBP& OnCompletedRequest)
 {
-	ULootLockerAdminAssetRequest::GetAssets(bIncludeInactive, OnCompletedRequest);
+	ULootLockerAdminAssetRequest::GetAssets(bIncludeInactive, Page, OnCompletedRequest);
 }
 
 // CATALOG
