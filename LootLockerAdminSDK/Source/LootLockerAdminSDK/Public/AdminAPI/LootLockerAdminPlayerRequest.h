@@ -196,6 +196,11 @@ struct FLootLockerAdminDeletePlayerDataRequest : public FLootLockerAdminEmptyReq
 	 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
 	bool Player_storage = false;
+	/**
+	 * Resets all trigger invocations for the player
+	 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLockerAdmin")
+	bool Trigger_calls = false;
 };
 
 
